@@ -1,16 +1,29 @@
 import java.io.IOException;
-
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 import javax.swing.*;
 
 public class App {
     public static Member[] members = new Member[500];
+    private static final Logger logger = Logger.getLogger(App.class.getName());
+
+    public void SetLogMethod() {
+        try {
+            FileHandler fh = new FileHandler("mylog.log");
+            fh.setFormatter(new SimpleFormatter());
+            logger.addHandler(fh);
+        } catch (IOException e) {
+            logger.severe("Failed to create log file handler: " + e.getMessage());
+        }
+    }
 
     public static void main(String[] args) throws IOException {
-
+        App app = new App();
+        app.SetLogMethod();
         Admin admin = new Admin("Admin", "Admin", "Admin");
         String gg = "";
         String register_identity = "";
-        int searchTimes1 = 0;
         int afr = 1;
         int afrr = 1;
         int afrrr = 1;
@@ -131,44 +144,55 @@ public class App {
             String choice = (String) JOptionPane.showInputDialog(null,
                     "Welcome to NCU Library!\nPlease choose one of the following: ",
                     "Library Management System", JOptionPane.QUESTION_MESSAGE, icon1, a, a[0]);
+            logger.info("The front page: " + choice);
             if (choice != null && choice.equals("Help")) {
                 int abc = JOptionPane.showOptionDialog(null, "Please choose one of the following: ",
                         "Library Management System", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
                         Helpp, k, k[0]);
+                logger.info("The help page: " + abc);
                 if (abc == 0) {
                     int abcc = JOptionPane.showOptionDialog(null, "Please choose one of the following: ",
                             "Library Management System", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
                             Helpp, h, h[0]);
+                    logger.info("The rules page: " + abcc);
                     if (abcc == 0) {
                         JOptionPane.showMessageDialog(null,
                                 "Deadline: 10 Seconds\nFine: 100 Dollars\nMax_borrow: 2 Books",
                                 "Library Management System", JOptionPane.INFORMATION_MESSAGE, Studentt);
+                        logger.info("The rules of student: " + abcc);
                     } else if (abcc == 1) {
                         JOptionPane.showMessageDialog(null,
                                 "Deadline: 12 Seconds\nFine: 150 Dollars\nMax_borrow: 3 Books",
                                 "Library Management System", JOptionPane.INFORMATION_MESSAGE, Teacherr);
+                        logger.info("The rules of teacher: " + abcc);
                     } else if (abcc == 2) {
                         JOptionPane.showMessageDialog(null,
                                 "Deadline: 14 Seconds\nFine: 200 Dollars\nMax_borrow: 4 Books",
                                 "Library Management System", JOptionPane.INFORMATION_MESSAGE, Stafff);
+                        logger.info("The rules of staff: " + abcc);
                     }
                 } else if (abc == 1) {
                     JOptionPane.showMessageDialog(null,
                             "Collection and marshalling: \nManager: Tommy\nGmail: tommy920125@gmail.com\n\nPromotion service group: \nManager: Anita\nGmail: anita.tw88@gmail.com\n\nInformation Systems Group: \nManager: Lawrence\nGmail: law5616583@gmail.com\n\nAdministration Room: \nManager: Eric\nGmail: liu911229@gmail.com\n\n",
                             "Library Management System", JOptionPane.INFORMATION_MESSAGE, Selfiee);
+                    logger.info("The contact page: " + abc);
                 }
             }
             if (choice != null && choice.equals("Rank")) {
+                logger.info("The ranking page: " + choice);
                 admin.ranking();
             }
             if (choice != null && choice.equals("Search")) {
+                logger.info("The search page: " + choice);
                 String search_choice = (String) JOptionPane.showInputDialog(null,
                         "Please choose one of the following: ",
                         "Library Management System", JOptionPane.QUESTION_MESSAGE, Searchh, f, f[0]);
                 if (search_choice.equals("Category")) {
+                    logger.info("The search page: " + search_choice);
                     String choiced = (String) JOptionPane.showInputDialog(null, "Please choose one of the following: ",
                             "Library Management System", JOptionPane.QUESTION_MESSAGE, Categoryy, m, m[0]);
                     if (choiced.equals("Exit")) {
+                        logger.info("Exit the search page: " + search_choice);
                         continue;
                     }
                     String yu = "";
@@ -259,7 +283,7 @@ public class App {
                             JOptionPane.showMessageDialog(null, ff,
                                     "Library Management System",
                                     JOptionPane.INFORMATION_MESSAGE, array_icon[i]);
-                            Admin.books[i].setsearchCount(Admin.books[i].getsearchCount()+1);
+                            Admin.books[i].setsearchCount(Admin.books[i].getsearchCount() + 1);
                             break;
 
                         }
@@ -291,7 +315,7 @@ public class App {
                             JOptionPane.showMessageDialog(null, fff,
                                     "Library Management System",
                                     JOptionPane.INFORMATION_MESSAGE, array_icon[i]);
-                                    Admin.books[i].setsearchCount(Admin.books[i].getsearchCount()+1);
+                            Admin.books[i].setsearchCount(Admin.books[i].getsearchCount() + 1);
                             break;
 
                         } else if (Admin.books[i] == null && i == Admin.books.length - 1) {
@@ -322,7 +346,7 @@ public class App {
                             JOptionPane.showMessageDialog(null, ffff,
                                     "Library Management System",
                                     JOptionPane.INFORMATION_MESSAGE, array_icon[i]);
-                                    Admin.books[i].setsearchCount(Admin.books[i].getsearchCount()+1);
+                            Admin.books[i].setsearchCount(Admin.books[i].getsearchCount() + 1);
                             break;
 
                         }
@@ -348,7 +372,7 @@ public class App {
                             JOptionPane.showMessageDialog(null, Admin.books[i].toString(),
                                     "Library Management System",
                                     JOptionPane.INFORMATION_MESSAGE, array_icon[i]);
-                                    Admin.books[i].setsearchCount(Admin.books[i].getsearchCount()+1);
+                            Admin.books[i].setsearchCount(Admin.books[i].getsearchCount() + 1);
                             break;
                         } else if (Admin.books[i] == null && i == Admin.books.length - 1) {
                             JOptionPane.showMessageDialog(null, "The book doesn't exist!\nPlease try again!",
