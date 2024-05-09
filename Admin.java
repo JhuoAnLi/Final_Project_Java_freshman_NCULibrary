@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 
 public class Admin extends User {
     public static Books[] books = new Books[500];
@@ -19,9 +20,9 @@ public class Admin extends User {
     }
 
     private Connection connectToDatabase() throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/your_database_name";
-        String user = "your_username";
-        String password = "your_password";
+        String url = "jdbc:mysql://localhost:3306/java_final_project";
+        String user = "java";
+        String password = "java";
         return DriverManager.getConnection(url, user, password);
     }
 
@@ -32,6 +33,22 @@ public class Admin extends User {
                 books[i] = book;
                 break;
             }
+        }
+
+        // Add book to database
+        try (Connection conn = connectToDatabase()) {
+            System.out.println("Connected to the database");
+            String sql = "INSERT INTO books (name, author, publisher, ISBN, category, status) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, name);
+            pstmt.setString(2, author);
+            pstmt.setString(3, publisher);
+            pstmt.setInt(4, ISBN);
+            pstmt.setString(5, category);
+            pstmt.setString(6, status);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
