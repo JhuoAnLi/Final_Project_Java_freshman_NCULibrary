@@ -1,3 +1,4 @@
 # Ignore .class files
 *.class
 tempCodeRunnerFile.java
+*.log
