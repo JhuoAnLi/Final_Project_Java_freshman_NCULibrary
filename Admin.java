@@ -4,11 +4,11 @@ public class Admin extends User {
     public static Books[] books = new Books[500];
 
     ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-    java.net.URL resourcec = classLoader.getResource("Check_books.png");
+    java.net.URL resourcec = classLoader.getResource("resources/" + "Check_books.png");
     ImageIcon Check_bookss = new ImageIcon(resourcec);
-    java.net.URL resourcece = classLoader.getResource("Money.png");
+    java.net.URL resourcece = classLoader.getResource("resources/" + "Money.png");
     ImageIcon Moneyy = new ImageIcon(resourcece);
-    java.net.URL resourcecew = classLoader.getResource("Rank.png");
+    java.net.URL resourcecew = classLoader.getResource("resources/" + "Rank.png");
     ImageIcon tgtgg = new ImageIcon(resourcecew);
 
     public Admin(String name, String account, String password) {

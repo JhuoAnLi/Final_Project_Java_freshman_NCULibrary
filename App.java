@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -7,6 +8,47 @@ import javax.swing.*;
 public class App {
     public static Member[] members = new Member[500];
     private static final Logger logger = Logger.getLogger(App.class.getName());
+    // 圖片列表名稱
+    private static String[] imageNames = {
+        "bukubook3.png", "Add_books.png", "Admin.png", "author.png", "Borrow_books.png", 
+        "Check_members.png", "Delete_books.png", "isbn.png", "login.png", "name.png", 
+        "search.png", "Search_times.png", "Return_books.png", "register.png", "publisher.png", 
+        "Staff.png", "status.png", "Student.png", "Teacher.png", "Update_books.png", 
+        "Help.png", "Selfie.png", "Category.png"
+    };
+    private static String[] bookImageNames = {
+        "Java.png", "C.png", "Go.png", 
+        "ART WORK.png", "Insurgent Empire.png", "The Prince.png", "The Druid.png", 
+        "Cod.png", "Cosmos.png", "The Social Animal.png", "Three Kingdoms.png"
+    };
+    // 變數名稱列表
+    private static String[] variableNames = {
+        "icon1", "Add_bookss", "Adminn", "Authorr", "Borrow_bookss", 
+        "Check_memberss", "Delete_bookss", "Isbnn", "Loginn", "Namee", 
+        "Searchh", "Search_timess", "Return_bookss", "Registerr", "Publisherr", 
+        "Stafff", "Statuss", "Studentt", "Teacherr", "Update_bookss", 
+        "Helpp", "Selfiee", "Categoryy"
+    };
+    // 創建一個 HashMap 來存儲變數名稱和對應的 ImageIcon 對象
+    private static HashMap<String, ImageIcon> icons = new HashMap<>();
+    private static ImageIcon[] array_icon = new ImageIcon[60];
+
+    // 讀取圖片的方法
+    private void loadImages(String[] imageNames, String[] variableNames, boolean isBookImage) {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        for (int i = 0; i < imageNames.length; i++) {
+            java.net.URL resource = classLoader.getResource("resources/" + imageNames[i]);
+            if (resource == null) {
+                System.out.println("Cannot find resource: " + imageNames[i]);
+                continue;
+            }
+            if (isBookImage) {
+                array_icon[i] = new ImageIcon(resource);
+            } else {
+                icons.put(variableNames[i], new ImageIcon(resource));
+            }
+        }
+    }
 
     public void SetLogMethod() {
         try {
@@ -34,76 +76,10 @@ public class App {
         String register_age;
         String account;
         String password;
-        ImageIcon[] array_icon = new ImageIcon[60];
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        java.net.URL resource = classLoader.getResource("bukubook3.png");
-        ImageIcon icon1 = new ImageIcon(resource);
-        java.net.URL resource2 = classLoader.getResource("Add_books.png");
-        ImageIcon Add_bookss = new ImageIcon(resource2);
-        java.net.URL resource3 = classLoader.getResource("Admin.png");
-        ImageIcon Adminn = new ImageIcon(resource3);
-        java.net.URL resource4 = classLoader.getResource("author.png");
-        ImageIcon Authorr = new ImageIcon(resource4);
-        java.net.URL resource5 = classLoader.getResource("Borrow_books.png");
-        ImageIcon Borrow_bookss = new ImageIcon(resource5);
-        java.net.URL resource6 = classLoader.getResource("Check_members.png");
-        ImageIcon Check_memberss = new ImageIcon(resource6);
-        java.net.URL resource7 = classLoader.getResource("Delete_books.png");
-        ImageIcon Delete_bookss = new ImageIcon(resource7);
-        java.net.URL resource8 = classLoader.getResource("isbn.png");
-        ImageIcon Isbnn = new ImageIcon(resource8);
-        java.net.URL resource9 = classLoader.getResource("login.png");
-        ImageIcon Loginn = new ImageIcon(resource9);
-        java.net.URL resource10 = classLoader.getResource("name.png");
-        ImageIcon Namee = new ImageIcon(resource10);
-        java.net.URL resource11 = classLoader.getResource("search.png");
-        ImageIcon Searchh = new ImageIcon(resource11);
-        java.net.URL resource12 = classLoader.getResource("Search_times.png");
-        ImageIcon Search_timess = new ImageIcon(resource12);
-        java.net.URL resource13 = classLoader.getResource("Return_books.png");
-        ImageIcon Return_bookss = new ImageIcon(resource13);
-        java.net.URL resource14 = classLoader.getResource("register.png");
-        ImageIcon Registerr = new ImageIcon(resource14);
-        java.net.URL resource15 = classLoader.getResource("publisher.png");
-        ImageIcon Publisherr = new ImageIcon(resource15);
-        java.net.URL resource16 = classLoader.getResource("Staff.png");
-        ImageIcon Stafff = new ImageIcon(resource16);
-        java.net.URL resource17 = classLoader.getResource("status.png");
-        ImageIcon Statuss = new ImageIcon(resource17);
-        java.net.URL resource18 = classLoader.getResource("Student.png");
-        ImageIcon Studentt = new ImageIcon(resource18);
-        java.net.URL resource19 = classLoader.getResource("Teacher.png");
-        ImageIcon Teacherr = new ImageIcon(resource19);
-        java.net.URL resource20 = classLoader.getResource("Update_books.png");
-        ImageIcon Update_bookss = new ImageIcon(resource20);
-        java.net.URL resource21 = classLoader.getResource("Help.png");
-        ImageIcon Helpp = new ImageIcon(resource21);
-        java.net.URL resource22 = classLoader.getResource("Selfie.png");
-        ImageIcon Selfiee = new ImageIcon(resource22);
-        java.net.URL resource23 = classLoader.getResource("Category.png");
-        ImageIcon Categoryy = new ImageIcon(resource23);
-        java.net.URL resource24 = classLoader.getResource("Java.png");
-        array_icon[0] = new ImageIcon(resource24);
-        java.net.URL resource27 = classLoader.getResource("C.png");
-        array_icon[1] = new ImageIcon(resource27);
-        java.net.URL resource33 = classLoader.getResource("Go.png");
-        array_icon[2] = new ImageIcon(resource33);
-        java.net.URL resource41 = classLoader.getResource("ART WORK.png");
-        array_icon[3] = new ImageIcon(resource41);
-        java.net.URL resource44 = classLoader.getResource("Insurgent Empire.png");
-        array_icon[4] = new ImageIcon(resource44);
-        java.net.URL resource49 = classLoader.getResource("The Prince.png");
-        array_icon[5] = new ImageIcon(resource49);
-        java.net.URL resource50 = classLoader.getResource("The Druid.png");
-        array_icon[6] = new ImageIcon(resource50);
-        java.net.URL resource55 = classLoader.getResource("Cod.png");
-        array_icon[7] = new ImageIcon(resource55);
-        java.net.URL resource58 = classLoader.getResource("Cosmos.png");
-        array_icon[8] = new ImageIcon(resource58);
-        java.net.URL resource59 = classLoader.getResource("The Social Animal.png");
-        array_icon[9] = new ImageIcon(resource59);
-        java.net.URL resource63 = classLoader.getResource("Three Kingdoms.png");
-        array_icon[10] = new ImageIcon(resource63);
+
+        // 讀取圖片
+        app.loadImages(imageNames, variableNames, false);
+        app.loadImages(bookImageNames, null, true);
 
         members[0] = new Staff("Ben", "Ben", "Ben", "Staff", 45);
         members[1] = new Teacher("Mary", "Mary", "Mary", "Teacher", 35);
@@ -143,38 +119,38 @@ public class App {
         while (true) {
             String choice = (String) JOptionPane.showInputDialog(null,
                     "Welcome to NCU Library!\nPlease choose one of the following: ",
-                    "Library Management System", JOptionPane.QUESTION_MESSAGE, icon1, a, a[0]);
+                    "Library Management System", JOptionPane.QUESTION_MESSAGE, icons.get("icon1"), a, a[0]);
             logger.info("The front page: " + choice);
             if (choice != null && choice.equals("Help")) {
                 int abc = JOptionPane.showOptionDialog(null, "Please choose one of the following: ",
                         "Library Management System", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
-                        Helpp, k, k[0]);
+                        icons.get("Helpp"), k, k[0]);
                 logger.info("The help page: " + abc);
                 if (abc == 0) {
                     int abcc = JOptionPane.showOptionDialog(null, "Please choose one of the following: ",
                             "Library Management System", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
-                            Helpp, h, h[0]);
+                            icons.get("Helpp"), h, h[0]);
                     logger.info("The rules page: " + abcc);
                     if (abcc == 0) {
                         JOptionPane.showMessageDialog(null,
                                 "Deadline: 10 Seconds\nFine: 100 Dollars\nMax_borrow: 2 Books",
-                                "Library Management System", JOptionPane.INFORMATION_MESSAGE, Studentt);
+                                "Library Management System", JOptionPane.INFORMATION_MESSAGE, icons.get("Studentt"));
                         logger.info("The rules of student: " + abcc);
                     } else if (abcc == 1) {
                         JOptionPane.showMessageDialog(null,
                                 "Deadline: 12 Seconds\nFine: 150 Dollars\nMax_borrow: 3 Books",
-                                "Library Management System", JOptionPane.INFORMATION_MESSAGE, Teacherr);
+                                "Library Management System", JOptionPane.INFORMATION_MESSAGE, icons.get("Teacherr"));
                         logger.info("The rules of teacher: " + abcc);
                     } else if (abcc == 2) {
                         JOptionPane.showMessageDialog(null,
                                 "Deadline: 14 Seconds\nFine: 200 Dollars\nMax_borrow: 4 Books",
-                                "Library Management System", JOptionPane.INFORMATION_MESSAGE, Stafff);
+                                "Library Management System", JOptionPane.INFORMATION_MESSAGE, icons.get("Stafff"));
                         logger.info("The rules of staff: " + abcc);
                     }
                 } else if (abc == 1) {
                     JOptionPane.showMessageDialog(null,
                             "Collection and marshalling: \nManager: Tommy\nGmail: tommy920125@gmail.com\n\nPromotion service group: \nManager: Anita\nGmail: anita.tw88@gmail.com\n\nInformation Systems Group: \nManager: Lawrence\nGmail: law5616583@gmail.com\n\nAdministration Room: \nManager: Eric\nGmail: liu911229@gmail.com\n\n",
-                            "Library Management System", JOptionPane.INFORMATION_MESSAGE, Selfiee);
+                            "Library Management System", JOptionPane.INFORMATION_MESSAGE, icons.get("Selfiee"));
                     logger.info("The contact page: " + abc);
                 }
             }
@@ -186,11 +162,11 @@ public class App {
                 logger.info("The search page: " + choice);
                 String search_choice = (String) JOptionPane.showInputDialog(null,
                         "Please choose one of the following: ",
-                        "Library Management System", JOptionPane.QUESTION_MESSAGE, Searchh, f, f[0]);
+                        "Library Management System", JOptionPane.QUESTION_MESSAGE, icons.get("Searchh"), f, f[0]);
                 if (search_choice.equals("Category")) {
                     logger.info("The search page: " + search_choice);
                     String choiced = (String) JOptionPane.showInputDialog(null, "Please choose one of the following: ",
-                            "Library Management System", JOptionPane.QUESTION_MESSAGE, Categoryy, m, m[0]);
+                            "Library Management System", JOptionPane.QUESTION_MESSAGE, icons.get("Categoryy"), m, m[0]);
                     if (choiced.equals("Exit")) {
                         logger.info("Exit the search page: " + search_choice);
                         continue;
@@ -228,7 +204,7 @@ public class App {
                 if (search_choice.equals("Status")) {
                     int search_content1 = JOptionPane.showOptionDialog(null, "Please choose one of the following: ",
                             "Library Management System", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
-                            Statuss, j, j[0]);
+                            icons.get("Statuss"), j, j[0]);
                     if (search_content1 == 0) {
                         gg = "Available";
                     } else if (search_content1 == 1) {
@@ -266,7 +242,7 @@ public class App {
                 } else if (search_choice.equals("Name")) {
                     String search_content = JOptionPane.showInputDialog(null,
                             "Please enter the content you want to search: ",
-                            "Library Management System", JOptionPane.PLAIN_MESSAGE, Namee, null, "").toString();
+                            "Library Management System", JOptionPane.PLAIN_MESSAGE, icons.get("Namee"), null, "").toString();
                     logger.info("The search page: " + search_choice);
                     if (search_content.equals("")) {
                         JOptionPane.showMessageDialog(null, "The content is empty!\nPlease try again!",
@@ -305,7 +281,7 @@ public class App {
                 } else if (search_choice.equals("Author")) {
                     String search_content1 = JOptionPane.showInputDialog(null,
                             "Please enter the content you want to search: ",
-                            "Library Management System", JOptionPane.PLAIN_MESSAGE, Authorr, null, "").toString();
+                            "Library Management System", JOptionPane.PLAIN_MESSAGE, icons.get("Authorr"), null, "").toString();
                     if (search_content1.equals("")) {
                         JOptionPane.showMessageDialog(null, "The content is empty!\nPlease try again!",
                                 "Library Management System", JOptionPane.INFORMATION_MESSAGE);
@@ -341,7 +317,7 @@ public class App {
                 } else if (search_choice.equals("Publisher")) {
                     String search_content2 = JOptionPane.showInputDialog(null,
                             "Please enter the content you want to search: ",
-                            "Library Management System", JOptionPane.PLAIN_MESSAGE, Publisherr, null, "").toString();
+                            "Library Management System", JOptionPane.PLAIN_MESSAGE, icons.get("Publisherr"), null, "").toString();
                     if (search_content2.equals("")) {
                         JOptionPane.showMessageDialog(null, "The content is empty!\nPlease try again!",
                                 "Library Management System", JOptionPane.INFORMATION_MESSAGE);
@@ -378,7 +354,7 @@ public class App {
                 } else if (search_choice.equals("ISBN")) {
                     String search_content3 = JOptionPane.showInputDialog(null,
                             "Please enter the content you want to search: ",
-                            "Library Management System", JOptionPane.PLAIN_MESSAGE, Isbnn, null, "").toString();
+                            "Library Management System", JOptionPane.PLAIN_MESSAGE, icons.get("Isbnn"), null, "").toString();
                     if (search_content3.equals("") || search_content3.equals(" ")) {
                         JOptionPane.showMessageDialog(null, "The content is empty!\nPlease try again!",
                                 "Library Management System", JOptionPane.INFORMATION_MESSAGE);
@@ -413,7 +389,7 @@ public class App {
                 do {
                     register_name = JOptionPane.showInputDialog(null,
                             "Please enter your name: ",
-                            "Library Management System", JOptionPane.PLAIN_MESSAGE, Registerr, null, "").toString();
+                            "Library Management System", JOptionPane.PLAIN_MESSAGE, icons.get("Registerr"), null, "").toString();
                     if (register_name.equals("") || register_name.equals(" ")) {
                         JOptionPane.showMessageDialog(null, "Please enter your name!",
                                 "Library Management System", JOptionPane.INFORMATION_MESSAGE);
@@ -444,7 +420,7 @@ public class App {
 
                     register_account = JOptionPane.showInputDialog(null,
                             "Please enter the account you want to register: ",
-                            "Library Management System", JOptionPane.PLAIN_MESSAGE, Registerr, null, "").toString();
+                            "Library Management System", JOptionPane.PLAIN_MESSAGE, icons.get("Registerr"), null, "").toString();
                     if (register_account.equals("") || register_account.equals(" ")) {
                         JOptionPane.showMessageDialog(null, "Please enter your account!",
                                 "Library Management System", JOptionPane.INFORMATION_MESSAGE);
@@ -482,7 +458,7 @@ public class App {
                 do {
                     register_password = JOptionPane.showInputDialog(null,
                             "Please enter the password you want to register: ",
-                            "Library Management System", JOptionPane.PLAIN_MESSAGE, Registerr, null, "").toString();
+                            "Library Management System", JOptionPane.PLAIN_MESSAGE, icons.get("Registerr"), null, "").toString();
                     if (register_password.equals("") || register_password.equals(" ")) {
                         JOptionPane.showMessageDialog(null, "Please enter your password!",
                                 "Library Management System", JOptionPane.INFORMATION_MESSAGE);
@@ -496,7 +472,7 @@ public class App {
                 int yy = JOptionPane.showOptionDialog(null,
                         "Please enter your identity: ",
                         "Library Management System", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
-                        Registerr,
+                        icons.get("Registerr"),
                         h, h[0]);
                 if (yy == 0) {
                     register_identity = "Student";
@@ -513,7 +489,7 @@ public class App {
 
                     register_age = JOptionPane.showInputDialog(null,
                             "Please enter your age (Age>15): ",
-                            "Library Management System", JOptionPane.PLAIN_MESSAGE, Registerr, null, "").toString();
+                            "Library Management System", JOptionPane.PLAIN_MESSAGE, icons.get("Registerr"), null, "").toString();
                     if (register_age.equals("") || register_age.equals(" ")) {
                         JOptionPane.showMessageDialog(null, "Please enter your age!",
                                 "Library Management System", JOptionPane.INFORMATION_MESSAGE);
@@ -558,7 +534,7 @@ public class App {
             }
             if (choice.equals("Login")) {
                 String login_choice = (String) JOptionPane.showInputDialog(null, "Please choose one of the following: ",
-                        "Library Management System", JOptionPane.QUESTION_MESSAGE, Loginn, d, d[0]);
+                        "Library Management System", JOptionPane.QUESTION_MESSAGE, icons.get("Loginn"), d, d[0]);
                 if (login_choice != null && login_choice.equals("Exit")) {
                     logger.info("Exit the login page: " + choice);
                     continue;
@@ -567,13 +543,13 @@ public class App {
                 if (login_choice.equals("Admin")) {
                     account = JOptionPane.showInputDialog(null, "Please enter your account: ",
                             "Library Management System",
-                            JOptionPane.QUESTION_MESSAGE, Adminn, null, "").toString();
+                            JOptionPane.QUESTION_MESSAGE, icons.get("Adminn"), null, "").toString();
                     logger.info("The login page: " + choice);
                     if (account == null) {
                         break;
                     }
                     password = JOptionPane.showInputDialog(null, "Please enter your password: ",
-                            "Library Management System", JOptionPane.QUESTION_MESSAGE, Adminn, null, "").toString();
+                            "Library Management System", JOptionPane.QUESTION_MESSAGE, icons.get("Adminn"), null, "").toString();
                     logger.info("The login page: " + choice);
                     if (password == null) {
                         break;
@@ -587,7 +563,7 @@ public class App {
                         while (true) {
                             String admin_choice = (String) JOptionPane.showInputDialog(null,
                                     "Please choose one of the following: ", "Library Management System",
-                                    JOptionPane.QUESTION_MESSAGE, Adminn, e, e[0]);
+                                    JOptionPane.QUESTION_MESSAGE, icons.get("Adminn"), e, e[0]);
 
                             if (admin_choice.equals("Logout")) {
                                 JOptionPane.showMessageDialog(null, "Logout successfully!",
@@ -597,7 +573,7 @@ public class App {
                             }
                             if (admin_choice.equals("Add_book")) {
                                 String name = JOptionPane.showInputDialog(null, "Please enter the name of the book: ",
-                                        "Library Management System", JOptionPane.QUESTION_MESSAGE, Add_bookss, null, "")
+                                        "Library Management System", JOptionPane.QUESTION_MESSAGE, icons.get("Add_bookss"), null, "")
                                         .toString();
                                 if (name.equals("") || name.equals(" ")) {
                                     JOptionPane.showMessageDialog(null, "Please enter the name of the book!",
@@ -607,7 +583,7 @@ public class App {
                                 }
                                 String author = JOptionPane.showInputDialog(null,
                                         "Please enter the author of the book: ",
-                                        "Library Management System", JOptionPane.QUESTION_MESSAGE, Add_bookss, null, "")
+                                        "Library Management System", JOptionPane.QUESTION_MESSAGE, icons.get("Add_bookss"), null, "")
                                         .toString();
                                 if (author.equals("") || name.equals(" ")) {
                                     JOptionPane.showMessageDialog(null, "Please enter the author of the book!",
@@ -617,14 +593,14 @@ public class App {
                                 }
                                 String publisher = JOptionPane.showInputDialog(null,
                                         "Please enter the publisher of the book: ", "Library Management System",
-                                        JOptionPane.QUESTION_MESSAGE, Add_bookss, null, "").toString();
+                                        JOptionPane.QUESTION_MESSAGE, icons.get("Add_bookss"), null, "").toString();
                                 if (publisher.equals("") || name.equals(" ")) {
                                     JOptionPane.showMessageDialog(null, "Please enter the publisher of the book!",
                                             "Library Management System", JOptionPane.INFORMATION_MESSAGE);
                                     continue;
                                 }
                                 String ISBN = JOptionPane.showInputDialog(null, "Please enter the ISBN of the book: ",
-                                        "Library Management System", JOptionPane.QUESTION_MESSAGE, Add_bookss, null, "")
+                                        "Library Management System", JOptionPane.QUESTION_MESSAGE, icons.get("Add_bookss"), null, "")
                                         .toString();
                                 logger.info("The login page: " + choice);
                                 if (ISBN.equals("") || name.equals(" ")) {
@@ -635,7 +611,7 @@ public class App {
                                 }
                                 String category = (String) JOptionPane.showInputDialog(null,
                                         "Please choose one of the following: ",
-                                        "Library Management System", JOptionPane.QUESTION_MESSAGE, Add_bookss, m, m[0]);
+                                        "Library Management System", JOptionPane.QUESTION_MESSAGE, icons.get("Add_bookss"), m, m[0]);
                                 if (category.equals("")) {
                                     JOptionPane.showMessageDialog(null, "Please choose one of the following!",
                                             "Library Management System", JOptionPane.INFORMATION_MESSAGE);
@@ -645,7 +621,7 @@ public class App {
                                 int status = JOptionPane.showOptionDialog(null,
                                         "Please enter the status of the book: ",
                                         "Library Management System", JOptionPane.DEFAULT_OPTION,
-                                        JOptionPane.INFORMATION_MESSAGE, Add_bookss, j, j[0]);
+                                        JOptionPane.INFORMATION_MESSAGE, icons.get("Add_bookss"), j, j[0]);
                                 logger.info("The login page: " + choice);
                                 String avd = "";
                                 if (status == 0) {
@@ -662,7 +638,7 @@ public class App {
                             }
                             if (admin_choice.equals("Delete_book")) {
                                 String ISBN = JOptionPane.showInputDialog(null, "Please enter the ISBN of the book: ",
-                                        "Library Management System", JOptionPane.QUESTION_MESSAGE, Delete_bookss, null,
+                                        "Library Management System", JOptionPane.QUESTION_MESSAGE, icons.get("Delete_bookss"), null,
                                         "").toString();
                                 if (ISBN.equals("") || ISBN.equals(" ")) {
                                     JOptionPane.showMessageDialog(null, "Please enter the ISBN of the book!",
@@ -692,7 +668,7 @@ public class App {
                             if (admin_choice.equals("Update_book")) {
 
                                 String name = JOptionPane.showInputDialog(null, "Please enter the name of the book: ",
-                                        "Library Management System", JOptionPane.QUESTION_MESSAGE, Update_bookss, null,
+                                        "Library Management System", JOptionPane.QUESTION_MESSAGE, icons.get("Update_bookss"), null,
                                         "").toString();
                                 if (name.equals("") || name.equals(" ")) {
                                     JOptionPane.showMessageDialog(null, "Please enter the name of the book!",
@@ -705,7 +681,7 @@ public class App {
                                         String update_choice = (String) JOptionPane.showInputDialog(null,
                                                 "Please choose one of the following: ",
                                                 "Library Management System", JOptionPane.QUESTION_MESSAGE,
-                                                Update_bookss, ll,
+                                                icons.get("Update_bookss"), ll,
                                                 ll[0]);
                                         logger.info("The login page: " + choice);
                                         if (update_choice.equals("Exit")) {
@@ -715,7 +691,7 @@ public class App {
                                             String author = JOptionPane.showInputDialog(null,
                                                     "Please enter the author of the book: ",
                                                     "Library Management System", JOptionPane.QUESTION_MESSAGE,
-                                                    Update_bookss,
+                                                    icons.get("Update_bookss"),
                                                     null, "").toString();
                                             if (author.equals("") || author.equals(" ")) {
                                                 JOptionPane.showMessageDialog(null,
@@ -735,7 +711,7 @@ public class App {
                                             String publisher = JOptionPane.showInputDialog(null,
                                                     "Please enter the publisher of the book: ",
                                                     "Library Management System", JOptionPane.QUESTION_MESSAGE,
-                                                    Update_bookss,
+                                                    icons.get("Update_bookss"),
                                                     null, "").toString();
                                             if (publisher.equals("") || publisher.equals(" ")) {
                                                 JOptionPane.showMessageDialog(null,
@@ -755,7 +731,7 @@ public class App {
                                             String ISBN = JOptionPane
                                                     .showInputDialog(null, "Please enter the ISBN of the book: ",
                                                             "Library Management System", JOptionPane.QUESTION_MESSAGE,
-                                                            Update_bookss, null, "")
+                                                            icons.get("Update_bookss"), null, "")
                                                     .toString();
                                             if (ISBN.equals("") || ISBN.equals(" ")) {
                                                 JOptionPane.showMessageDialog(null,
@@ -775,7 +751,7 @@ public class App {
                                             String category = (String) JOptionPane.showInputDialog(null,
                                                     "Please choose one of the following: ",
                                                     "Library Management System", JOptionPane.QUESTION_MESSAGE,
-                                                    Update_bookss, m,
+                                                    icons.get("Update_bookss"), m,
                                                     m[0]);
                                             if (category.equals("")) {
                                                 JOptionPane.showMessageDialog(null,
@@ -797,7 +773,7 @@ public class App {
                                             int status = JOptionPane.showOptionDialog(null,
                                                     "Please enter the status of the book: ",
                                                     "Library Management System", JOptionPane.DEFAULT_OPTION,
-                                                    JOptionPane.INFORMATION_MESSAGE, Update_bookss, j, j[0]);
+                                                    JOptionPane.INFORMATION_MESSAGE, icons.get("Update_bookss"), j, j[0]);
                                             String avd = "";
                                             if (status == 0) {
                                                 avd = "Available";
@@ -824,7 +800,7 @@ public class App {
                             if (admin_choice.equals("Check_members")) {
                                 String member_account = JOptionPane.showInputDialog(null,
                                         "Please enter the account of the member: ",
-                                        "Library Management System", JOptionPane.QUESTION_MESSAGE, Check_memberss, null,
+                                        "Library Management System", JOptionPane.QUESTION_MESSAGE, icons.get("Check_memberss"), null,
                                         "").toString();
                                 logger.info("The login page: " + choice);
                                 if (member_account.equals("")) {
@@ -846,7 +822,7 @@ public class App {
 
                                 String book_name = JOptionPane.showInputDialog(null,
                                         "Please enter the name of the book: ",
-                                        "Library Management System", JOptionPane.QUESTION_MESSAGE, Search_timess, null,
+                                        "Library Management System", JOptionPane.QUESTION_MESSAGE, icons.get("Search_timess"), null,
                                         "").toString();
                                 logger.info("The login page: " + choice);
                                 if (book_name.equals("") || book_name.equals(" ")) {
@@ -861,7 +837,7 @@ public class App {
                                                 "Searching times: " + Admin.books[t].getsearchCount()
                                                         + "\nBorrowing times: " + Admin.books[t].getTotalBorrowNum(),
                                                 "Library Management System", JOptionPane.INFORMATION_MESSAGE,
-                                                Search_timess);
+                                                icons.get("Search_timess"));
                                         logger.info("The login page: " + choice);
                                         break;
                                     }
@@ -895,13 +871,13 @@ public class App {
                 if (login_choice.equals("Student")) {
                     account = JOptionPane.showInputDialog(null, "Please enter your account: ",
                             "Library Management System",
-                            JOptionPane.QUESTION_MESSAGE, Studentt, null, "").toString();
+                            JOptionPane.QUESTION_MESSAGE, icons.get("Studentt"), null, "").toString();
                     logger.info("The login page: " + choice);
                     if (account == null) {
                         break;
                     }
                     password = JOptionPane.showInputDialog(null, "Please enter your password: ",
-                            "Library Management System", JOptionPane.QUESTION_MESSAGE, Studentt, null, "").toString();
+                            "Library Management System", JOptionPane.QUESTION_MESSAGE, icons.get("Studentt"), null, "").toString();
                     if (password == null) {
                         break;
                     }
@@ -921,7 +897,7 @@ public class App {
                             while (true) {
                                 String student_choice = (String) JOptionPane.showInputDialog(null,
                                         "Please choose one of the following: ", "Library Management System",
-                                        JOptionPane.QUESTION_MESSAGE, Studentt, b, b[0]);
+                                        JOptionPane.QUESTION_MESSAGE, icons.get("Studentt"), b, b[0]);
                                 if (student_choice.equals("Logout")) {
                                     JOptionPane.showMessageDialog(null, "Logout successfully!",
                                             "Library Management System", JOptionPane.INFORMATION_MESSAGE);
@@ -947,7 +923,7 @@ public class App {
                                     }
                                     String option = (String) JOptionPane.showInputDialog(null,
                                             "Please choose one of the following: ", "Library Management System",
-                                            JOptionPane.QUESTION_MESSAGE, Borrow_bookss, l, l[0]);
+                                            JOptionPane.QUESTION_MESSAGE, icons.get("Borrow_bookss"), l, l[0]);
                                     if (option.equals("Exit")) {
                                         logger.info("The login page: " + choice);
                                         continue;
@@ -956,7 +932,7 @@ public class App {
                                         String name = JOptionPane.showInputDialog(null,
                                                 "Please enter the name of the book: ",
                                                 "Library Management System", JOptionPane.QUESTION_MESSAGE,
-                                                Borrow_bookss, null, "").toString();
+                                                icons.get("Borrow_bookss"), null, "").toString();
                                         logger.info("The login page: " + choice);
                                         members[o].borrow_book(name, members[o].getAccount());
 
@@ -966,7 +942,7 @@ public class App {
                                         String author = JOptionPane.showInputDialog(null,
                                                 "Please enter the author of the book: ",
                                                 "Library Management System", JOptionPane.QUESTION_MESSAGE,
-                                                Borrow_bookss, null, "").toString();
+                                                icons.get("Borrow_bookss"), null, "").toString();
                                         logger.info("The login page: " + choice);
                                         members[o].borrow_book_author(author, members[o].getAccount());
                                     }
@@ -974,7 +950,7 @@ public class App {
                                         String publisher = JOptionPane.showInputDialog(null,
                                                 "Please enter the publisher of the book: ",
                                                 "Library Management System", JOptionPane.QUESTION_MESSAGE,
-                                                Borrow_bookss, null, "").toString();
+                                                icons.get("Borrow_bookss"), null, "").toString();
                                         logger.info("The login page: " + choice);
 
                                         members[o].borrow_book_publisher(publisher, members[o].getAccount());
@@ -983,7 +959,7 @@ public class App {
                                 } else if (student_choice.equals("Return_book")) {
                                     String name = JOptionPane.showInputDialog(null,
                                             "Please enter the name of the book: ",
-                                            "Library Management System", JOptionPane.QUESTION_MESSAGE, Return_bookss,
+                                            "Library Management System", JOptionPane.QUESTION_MESSAGE, icons.get("Return_bookss"),
                                             null, "").toString();
                                     logger.info("The login page: " + choice);
                                     if (name.equals("")) {
@@ -1018,13 +994,13 @@ public class App {
                 if (login_choice.equals("Teacher")) {
                     account = JOptionPane.showInputDialog(null, "Please enter your account: ",
                             "Library Management System",
-                            JOptionPane.QUESTION_MESSAGE, Teacherr, null, "").toString();
+                            JOptionPane.QUESTION_MESSAGE, icons.get("Teacherr"), null, "").toString();
                     logger.info("The login page: " + choice);
                     if (account == null) {
                         break;
                     }
                     password = JOptionPane.showInputDialog(null, "Please enter your password: ",
-                            "Library Management System", JOptionPane.QUESTION_MESSAGE, Teacherr, null, "").toString();
+                            "Library Management System", JOptionPane.QUESTION_MESSAGE, icons.get("Teacherr"), null, "").toString();
                     if (password == null) {
                         break;
                     }
@@ -1043,7 +1019,7 @@ public class App {
                             while (true) {
                                 String teacher_choice = (String) JOptionPane.showInputDialog(null,
                                         "Please choose one of the following: ", "Library Management System",
-                                        JOptionPane.QUESTION_MESSAGE, Teacherr, b, b[0]);
+                                        JOptionPane.QUESTION_MESSAGE, icons.get("Teacherr"), b, b[0]);
                                 if (teacher_choice.equals("Logout")) {
                                     JOptionPane.showMessageDialog(null, "Logout successfully!",
                                             "Library Management System", JOptionPane.INFORMATION_MESSAGE);
@@ -1068,7 +1044,7 @@ public class App {
                                     }
                                     String option = (String) JOptionPane.showInputDialog(null,
                                             "Please choose one of the following: ", "Library Management System",
-                                            JOptionPane.QUESTION_MESSAGE, Borrow_bookss, l, l[0]);
+                                            JOptionPane.QUESTION_MESSAGE, icons.get("Borrow_bookss"), l, l[0]);
                                     if (option.equals("Exit")) {
                                         continue;
                                     }
@@ -1076,7 +1052,7 @@ public class App {
                                         String name = JOptionPane.showInputDialog(null,
                                                 "Please enter the name of the book: ",
                                                 "Library Management System", JOptionPane.QUESTION_MESSAGE,
-                                                Borrow_bookss, null, "").toString();
+                                                icons.get("Borrow_bookss"), null, "").toString();
                                         logger.info("The login page: " + choice);
 
                                         members[o].borrow_book(name, members[o].getAccount());
@@ -1087,7 +1063,7 @@ public class App {
                                         String author = JOptionPane.showInputDialog(null,
                                                 "Please enter the author of the book: ",
                                                 "Library Management System", JOptionPane.QUESTION_MESSAGE,
-                                                Borrow_bookss, null, "").toString();
+                                                icons.get("Borrow_bookss"), null, "").toString();
                                         logger.info("The login page: " + choice);
 
                                         members[o].borrow_book_author(author, members[o].getAccount());
@@ -1096,7 +1072,7 @@ public class App {
                                         String publisher = JOptionPane.showInputDialog(null,
                                                 "Please enter the publisher of the book: ",
                                                 "Library Management System", JOptionPane.QUESTION_MESSAGE,
-                                                Borrow_bookss, null, "").toString();
+                                                icons.get("Borrow_bookss"), null, "").toString();
                                         logger.info("The login page: " + choice);
 
                                         members[o].borrow_book_publisher(publisher, members[o].getAccount());
@@ -1105,7 +1081,7 @@ public class App {
                                 } else if (teacher_choice.equals("Return_book")) {
                                     String name = JOptionPane.showInputDialog(null,
                                             "Please enter the name of the book: ",
-                                            "Library Management System", JOptionPane.QUESTION_MESSAGE, Return_bookss,
+                                            "Library Management System", JOptionPane.QUESTION_MESSAGE, icons.get("Return_bookss"),
                                             null, "").toString();
                                     logger.info("The login page: " + choice);
                                     if (name.equals("")) {
@@ -1138,12 +1114,12 @@ public class App {
                 } else if (login_choice.equals("Staff")) {
                     account = JOptionPane.showInputDialog(null, "Please enter your account: ",
                             "Library Management System",
-                            JOptionPane.QUESTION_MESSAGE, Stafff, null, "").toString();
+                            JOptionPane.QUESTION_MESSAGE, icons.get("Stafff"), null, "").toString();
                     if (account == null) {
                         break;
                     }
                     password = JOptionPane.showInputDialog(null, "Please enter your password: ",
-                            "Library Management System", JOptionPane.QUESTION_MESSAGE, Stafff, null, "").toString();
+                            "Library Management System", JOptionPane.QUESTION_MESSAGE, icons.get("Stafff"), null, "").toString();
                     logger.info("The login page: " + choice);
                     if (password == null) {
                         break;
@@ -1163,7 +1139,7 @@ public class App {
                             while (true) {
                                 String staff_choice = (String) JOptionPane.showInputDialog(null,
                                         "Please choose one of the following: ", "Library Management System",
-                                        JOptionPane.QUESTION_MESSAGE, Stafff, b, b[0]);
+                                        JOptionPane.QUESTION_MESSAGE, icons.get("Stafff"), b, b[0]);
                                 logger.info("The login page: " + choice);
                                 if (staff_choice.equals("Logout")) {
                                     JOptionPane.showMessageDialog(null, "Logout successfully!",
@@ -1190,7 +1166,7 @@ public class App {
                                     }
                                     String option = (String) JOptionPane.showInputDialog(null,
                                             "Please choose one of the following: ", "Library Management System",
-                                            JOptionPane.QUESTION_MESSAGE, Borrow_bookss, l, l[0]);
+                                            JOptionPane.QUESTION_MESSAGE, icons.get("Borrow_bookss"), l, l[0]);
                                     if (option.equals("Exit")) {
                                         logger.info("The login page: " + choice);
                                         continue;
@@ -1199,7 +1175,7 @@ public class App {
                                         String name = JOptionPane.showInputDialog(null,
                                                 "Please enter the name of the book: ",
                                                 "Library Management System", JOptionPane.QUESTION_MESSAGE,
-                                                Borrow_bookss, null, "").toString();
+                                                icons.get("Borrow_bookss"), null, "").toString();
 
                                         members[o].borrow_book(name, members[o].getAccount());
 
@@ -1209,7 +1185,7 @@ public class App {
                                         String author = JOptionPane.showInputDialog(null,
                                                 "Please enter the author of the book: ",
                                                 "Library Management System", JOptionPane.QUESTION_MESSAGE,
-                                                Borrow_bookss, null, "").toString();
+                                                icons.get("Borrow_bookss"), null, "").toString();
                                         logger.info("The login page: " + choice);
 
                                         members[o].borrow_book_author(author, members[o].getAccount());
@@ -1218,7 +1194,7 @@ public class App {
                                         String publisher = JOptionPane.showInputDialog(null,
                                                 "Please enter the publisher of the book: ",
                                                 "Library Management System", JOptionPane.QUESTION_MESSAGE,
-                                                Borrow_bookss, null, "").toString();
+                                                icons.get("Borrow_bookss"), null, "").toString();
                                         logger.info("The login page: " + choice);
 
                                         members[o].borrow_book_publisher(publisher, members[o].getAccount());
@@ -1227,7 +1203,7 @@ public class App {
                                 } else if (staff_choice.equals("Return_book")) {
                                     String name = JOptionPane.showInputDialog(null,
                                             "Please enter the name of the book: ",
-                                            "Library Management System", JOptionPane.QUESTION_MESSAGE, Return_bookss,
+                                            "Library Management System", JOptionPane.QUESTION_MESSAGE, icons.get("Return_bookss"),
                                             null, "").toString();
                                     logger.info("The login page: " + choice);
                                     if (name.equals("")) {

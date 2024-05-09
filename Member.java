@@ -19,13 +19,13 @@ public abstract class Member extends User {
 
     protected String borrowed_books[] = new String[50];
     ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-    java.net.URL resourcer = classLoader.getResource("Personal_information.png");
+    java.net.URL resourcer = classLoader.getResource("resources/" + "Personal_information.png");
     ImageIcon Personal_informationn = new ImageIcon(resourcer);
 
-    java.net.URL resourcerr = classLoader.getResource("Money.png");
+    java.net.URL resourcerr = classLoader.getResource("resources/" + "Money.png");
     ImageIcon Moneyy = new ImageIcon(resourcerr);
 
-    java.net.URL resourcerrr = classLoader.getResource("Code.png");
+    java.net.URL resourcerrr = classLoader.getResource("resources/" + "Code.png");
     ImageIcon Codee = new ImageIcon(resourcerrr);
 
     Admin admin = new Admin("Admin", "Admin", "Admin");
