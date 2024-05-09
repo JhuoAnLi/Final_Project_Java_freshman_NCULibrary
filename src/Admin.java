@@ -1,3 +1,4 @@
+package src;
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,6 +21,13 @@ public class Admin extends User {
     }
 
     private Connection connectToDatabase() throws SQLException {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println("MySQL JDBC Driver not found. Include it in your library path ");
+            e.printStackTrace();
+            return null;
+        }
         String url = "jdbc:mysql://localhost:3306/java_final_project";
         String user = "java";
         String password = "java";

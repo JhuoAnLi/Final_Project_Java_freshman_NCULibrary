@@ -1,3 +1,4 @@
+package src;
 public class Teacher extends Member {
     public Teacher(String name, String account, String password, String identity, int age) {
         super(name, account, password, identity, age);

@@ -1,3 +1,4 @@
+package src;
 public class Staff extends Member {
     public Staff(String name, String account, String password, String identity, int age) {
         super(name, account, password, identity, age);

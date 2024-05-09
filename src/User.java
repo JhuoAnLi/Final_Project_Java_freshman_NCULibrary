@@ -1,3 +1,4 @@
+package src;
 public class User {
     protected String name;
     protected String account;

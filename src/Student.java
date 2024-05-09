@@ -1,3 +1,4 @@
+package src;
 
 public class Student extends Member {
     public Student(String name, String account, String password, String identity, int age) {
