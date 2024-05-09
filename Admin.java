@@ -1,4 +1,7 @@
 import javax.swing.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class Admin extends User {
     public static Books[] books = new Books[500];
@@ -13,6 +16,13 @@ public class Admin extends User {
 
     public Admin(String name, String account, String password) {
         super(name, account, password);
+    }
+
+    private Connection connectToDatabase() throws SQLException {
+        String url = "jdbc:mysql://localhost:3306/your_database_name";
+        String user = "your_username";
+        String password = "your_password";
+        return DriverManager.getConnection(url, user, password);
     }
 
     public void add_book(String name, String author, String publisher, int ISBN, String category, String status) {
