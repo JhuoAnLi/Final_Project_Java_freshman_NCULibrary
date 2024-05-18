@@ -10,10 +10,13 @@ import view.App;
 public class AdminNavBar {
     public MenuBar createPanel(Object[] stageList, Stage primaryStage) {
         MenuBar menuBar = new MenuBar();
+
         Menu search = new Menu("搜尋");
         search.getItems().add(new MenuItem("搜尋"));
+
         Menu rank = new Menu("排行榜");
         rank.getItems().add(new MenuItem("排行榜"));
+
         Menu manageBook = new Menu("管理書籍");
         MenuItem addBook = new MenuItem("增加書籍");
         MenuItem updateBook = new MenuItem("修改書籍");
@@ -24,6 +27,7 @@ public class AdminNavBar {
 
         Menu logout = new Menu("登出");
         logout.getItems().add(new MenuItem("登出"));
+        
         menuBar.getMenus().add(search);
         menuBar.getMenus().add(rank);
         menuBar.getMenus().add(manageBook);
@@ -42,9 +46,11 @@ public class AdminNavBar {
         });
         addBook.setOnAction(e -> {
             setAllStageListInvisible(stageList);
+            ((GridPane) stageList[8]).setVisible(true);
         });
         updateBook.setOnAction(e -> {
             setAllStageListInvisible(stageList);
+            ((GridPane) stageList[9]).setVisible(true);
         });
         checkBook.setOnAction(e -> {
             setAllStageListInvisible(stageList);

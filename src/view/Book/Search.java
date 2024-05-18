@@ -111,7 +111,7 @@ public class Search {
                     content = searchContent.getText();
                 }
                 else if(method.equals("狀態")){
-                    ChoiceBox<String> searchContent = (ChoiceBox<String>) gridPane.getChildren().get(4);
+                    ChoiceBox<String> searchContent = (ChoiceBox<String>) gridPane.getChildren().get(3);
                     content = searchContent.getValue();
                 }
                 // search the book by the search method and search content
@@ -165,7 +165,10 @@ public class Search {
         }
         else if(method.equals("狀態")){
             for(object.Books book: books){
-                if(book.getStatus().equals(content)){
+                if(book.getStatus().equals("Available") && content.equals("可借")){
+                    searchResult.add(book);
+                }
+                else if(book.getStatus().equals("Unavailable") && content.equals("不可借")){
                     searchResult.add(book);
                 }
             }

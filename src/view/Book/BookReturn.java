@@ -9,7 +9,7 @@ import object.Member;
 import view.App;
 
 public class BookReturn {
-    public GridPane createPanel() {
+    public GridPane createPanel(Object[] stageList, javafx.stage.Stage primaryStage) {
         GridPane gridPane = new GridPane();
 
         return gridPane;

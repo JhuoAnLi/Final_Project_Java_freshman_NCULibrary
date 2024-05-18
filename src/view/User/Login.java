@@ -56,15 +56,21 @@ public class Login {
             else if(passwordField.getText().equals("")){
                 label1.setText("密碼(請輸入密碼)");
             }
-            else if(identityField.getValue().equals("學生")){
+            else if(identityField.getValue() != null){
                 // do sql here
                 // for test, we just use the account and password to check
-                if(App.MemberLogin(accountField.getText(), passwordField.getText(), stageList) != null){
+                if((identityField.getValue().equals("學生") || identityField.getValue().equals("教師")) && App.MemberLogin(accountField.getText(), passwordField.getText(), stageList) != null){
                     JOptionPane.showMessageDialog(null, "登入成功");
                     ((MenuBar) NavList[0]).setVisible(true);
                     ((MenuBar) NavList[1]).setVisible(false);
                     ((GridPane) stageList[3]).setVisible(true);
-
+                }
+                else if(identityField.getValue().equals("管理員") && App.AdminLogin(accountField.getText(), passwordField.getText(), stageList) != null){
+                    JOptionPane.showMessageDialog(null, "登入成功");
+                    ((MenuBar) NavList[0]).setVisible(false);
+                    ((MenuBar) NavList[1]).setVisible(false);
+                    ((MenuBar) NavList[2]).setVisible(true);
+                    ((GridPane) stageList[3]).setVisible(true);
                 }
                 else{
                     label.setText("帳號或密碼錯誤");

@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import view.App;
@@ -15,12 +14,12 @@ public class Admin extends User {
 
     ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 
-    java.net.URL resourcec = classLoader.getResource("resources/" + "Check_books.png");
-    ImageIcon Check_bookss = new ImageIcon(resourcec);
-    java.net.URL resourcece = classLoader.getResource("resources/" + "Money.png");
-    ImageIcon Moneyy = new ImageIcon(resourcece);
-    java.net.URL resourcecew = classLoader.getResource("resources/" + "Rank.png");
-    ImageIcon tgtgg = new ImageIcon(resourcecew);
+    // java.net.URL resourcec = classLoader.getResource("resources/" + "Check_books.png");
+    // ImageIcon Check_bookss = new ImageIcon(resourcec);
+    // java.net.URL resourcece = classLoader.getResource("resources/" + "Money.png");
+    // ImageIcon Moneyy = new ImageIcon(resourcece);
+    // java.net.URL resourcecew = classLoader.getResource("resources/" + "Rank.png");
+    // ImageIcon tgtgg = new ImageIcon(resourcecew);
 
     public Admin(String name, String account, String password) {
         super(name, account, password);
@@ -170,9 +169,10 @@ public class Admin extends User {
 
             }
         }
+        // int choicee = JOptionPane.showOptionDialog(null, "Please choose the book you want to check: ", "Books",
+        //         JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, Check_bookss, hh, hh[0]);
         int choicee = JOptionPane.showOptionDialog(null, "Please choose the book you want to check: ", "Books",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, Check_bookss, hh, hh[0]);
-
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, hh, hh[0]);
         if (choicee == 0) {
             if (ab == "") {
                 JOptionPane.showMessageDialog(null, ty);
@@ -200,8 +200,10 @@ public class Admin extends User {
                 total += App.members[i].getTotalFine();
             }
         }
+        // JOptionPane.showMessageDialog(null, "Total fine: " + total + " dollar(s)", "Total Fine",
+        //         JOptionPane.INFORMATION_MESSAGE, Moneyy);
         JOptionPane.showMessageDialog(null, "Total fine: " + total + " dollar(s)", "Total Fine",
-                JOptionPane.INFORMATION_MESSAGE, Moneyy);
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void ranking() {
@@ -237,8 +239,8 @@ public class Admin extends User {
             k += "Top " + (i + 1) + ": " + rank1[i] + " ( " + rank[i] + " )\n";
 
         }
-        JOptionPane.showMessageDialog(null, k, "Ranking", JOptionPane.INFORMATION_MESSAGE, tgtgg);
-
+        // JOptionPane.showMessageDialog(null, k, "Ranking", JOptionPane.INFORMATION_MESSAGE, tgtgg);
+        JOptionPane.showMessageDialog(null, k, "Ranking", JOptionPane.INFORMATION_MESSAGE);
     }
 
 }
