@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import view.App;
 
 public class AdminNavBar {
-    public MenuBar createPanel(Object[] stageList, Stage primaryStage) {
+    public MenuBar createPanel(Object[] stageList, Object[] NavList, Stage primaryStage) {
         MenuBar menuBar = new MenuBar();
 
         Menu search = new Menu("搜尋");
@@ -25,12 +25,16 @@ public class AdminNavBar {
         manageBook.getItems().add(updateBook);
         manageBook.getItems().add(checkBook);
 
+        Menu memberInfo = new Menu("會員資訊");
+        memberInfo.getItems().add(new MenuItem("會員資訊"));
+
         Menu logout = new Menu("登出");
         logout.getItems().add(new MenuItem("登出"));
         
         menuBar.getMenus().add(search);
         menuBar.getMenus().add(rank);
         menuBar.getMenus().add(manageBook);
+        menuBar.getMenus().add(memberInfo);
         menuBar.getMenus().add(logout);
 
         menuBar.setPrefWidth(800);
@@ -40,6 +44,7 @@ public class AdminNavBar {
             ((GridPane) stageList[3]).setVisible(true);
         });
         rank.setOnAction(e -> {
+            App.updateRankList(stageList);
             setAllStageListInvisible(stageList);
             ((GridPane) stageList[2]).setVisible(true);
             
@@ -54,9 +59,18 @@ public class AdminNavBar {
         });
         checkBook.setOnAction(e -> {
             setAllStageListInvisible(stageList);
+            ((GridPane) stageList[11]).setVisible(true);
         });
+        memberInfo.setOnAction(e -> {
+            setAllStageListInvisible(stageList);
+            ((GridPane) stageList[10]).setVisible(true);
+        });
+
         logout.setOnAction(e -> {
             App.logout();
+            ((MenuBar) NavList[0]).setVisible(false);
+            ((MenuBar) NavList[2]).setVisible(false);
+            ((MenuBar) NavList[1]).setVisible(true);
             setAllStageListInvisible(stageList);
             ((GridPane) stageList[4]).setVisible(true);
         });

@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import object.Books;
+import view.App;
 
 public class Rank {
-    public GridPane createPanel(Object[] stageList, javafx.stage.Stage primaryStage, ArrayList<Books> books) {
-        GridPane gridPane = new GridPane();
+    private static GridPane gridPane = new GridPane();
+    public GridPane createPanel(Object[] stageList, javafx.stage.Stage primaryStage) {
+        ArrayList<Books> books = App.getBooks();
         // draw the rank page
         // set the gap between the elements
         gridPane.setHgap(20);
@@ -27,12 +29,22 @@ public class Rank {
         }
         return gridPane;
     }
-    private ArrayList<Books> getRankList(ArrayList<Books> books){
+    private static ArrayList<Books> getRankList(ArrayList<Books> books){
         // get the rank list
-        // the rank list is the list of books, the books are sorted by the number of borrow times
-        // the first book is the most popular book
-        // the last book is the least popular book
-        // the rank list will be used to display the rank page
+
         return books;
     }
+    public static void updateRankList(){
+        // update the rank list
+        // get books then calculate the rank list
+        // clear gridPane until the title
+        ArrayList<Books> books = App.getBooks();
+        gridPane.getChildren().remove(1, gridPane.getChildren().size());
+        ArrayList<Books> rankList = getRankList(books);
+        for(int i = 0; i < rankList.size(); i++){
+            Label rank = new Label("第" + (i + 1) + "名: " + rankList.get(i).getName());
+            gridPane.add(rank, 0, i + 1);
+        }
+
+    }   
 }

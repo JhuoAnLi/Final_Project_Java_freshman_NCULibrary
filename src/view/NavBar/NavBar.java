@@ -5,6 +5,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import view.App;
 
 public class NavBar {
     public MenuBar createPanel (Object[] stageList, Stage primaryStage) {
@@ -31,6 +32,7 @@ public class NavBar {
         });
         rank.setOnAction(e -> {
             setAllStageListInvisible(stageList);
+            App.updateRankList(stageList);
             ((GridPane) stageList[2]).setVisible(true);
         });
         search.setOnAction(e -> {

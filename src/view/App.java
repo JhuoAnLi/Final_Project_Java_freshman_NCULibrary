@@ -16,7 +16,7 @@ import object.Books;
 import object.Member;
 import object.Student;
 import object.Teacher;
-import view.Book.BookReturn;
+import view.Book.Rank;
 import view.NavBar.AdminNavBar;
 import view.NavBar.MemberNavBar;
 import view.NavBar.NavBar;
@@ -41,18 +41,20 @@ public class App extends Application{
     public void start(Stage primaryStage) throws Exception {
         // test for object books
         ArrayList<Books> books = getBooks();
-        Object[] stageList = new Object[10];
+        Object[] stageList = new Object[15];
         Object[] NavList = new Object[3];
 
         GridPane loginPanal = new Login().createPanel(stageList, primaryStage, NavList);
         GridPane registerPanal = new view.User.Register().createPanel(stageList, primaryStage);
-        GridPane rankPanal = new view.Book.Rank().createPanel(stageList, primaryStage, books);
+        GridPane rankPanal = new view.Book.Rank().createPanel(stageList, primaryStage);
         GridPane searchPanal = new view.Book.Search().createPanel(stageList, primaryStage, books);
         GridPane bookBorrowPanal = new view.Book.BookBorrow().createPanel(stageList, primaryStage, books);
         GridPane PersonalInfoPanal = new view.User.PersonalInfo().createPanel(stageList, primaryStage);
         GridPane bookReturnPanal = new view.Book.BookReturn().createPanel(stageList, primaryStage);
         GridPane bookAddPanal = new view.Book.AddBook().createPanel(stageList, primaryStage);
         GridPane manageBookPanel = new view.Book.ManageBook().createPanel(stageList, primaryStage);
+        GridPane membersInfoPanel = new view.User.MembersInfo().createPanel(stageList, primaryStage);
+        GridPane bookStatusPane = new view.Book.BookStatus().createPanel(stageList, primaryStage);
         GridPane mainPage = CreateMainPage(stageList, primaryStage);
 
 
@@ -66,12 +68,14 @@ public class App extends Application{
         mainStackPage.getChildren().add(bookReturnPanal);
         mainStackPage.getChildren().add(bookAddPanal);
         mainStackPage.getChildren().add(manageBookPanel);
+        mainStackPage.getChildren().add(membersInfoPanel);
+        mainStackPage.getChildren().add(bookStatusPane);
         mainStackPage.getChildren().add(mainPage);
 
         StackPane NavStackPage = new StackPane();
-        MenuBar memberNav = new MemberNavBar().createPanel(stageList, primaryStage);
+        MenuBar memberNav = new MemberNavBar().createPanel(stageList, NavList, primaryStage);
         MenuBar nav = new NavBar().createPanel(stageList, primaryStage);
-        MenuBar adminNav = new AdminNavBar().createPanel(stageList, primaryStage);
+        MenuBar adminNav = new AdminNavBar().createPanel(stageList, NavList, primaryStage);
         NavStackPage.getChildren().add(memberNav);
         NavStackPage.getChildren().add(adminNav);
         NavStackPage.getChildren().add(nav);
@@ -87,6 +91,8 @@ public class App extends Application{
         stageList[7] = bookReturnPanal;
         stageList[8] = bookAddPanal;
         stageList[9] = manageBookPanel;
+        stageList[10] = membersInfoPanel;
+        stageList[11] = bookStatusPane;
 
         NavList[0] = memberNav;
         NavList[1] = nav;
@@ -203,9 +209,11 @@ public class App extends Application{
         currentLoginMember = null;
         currentLoginAdmin = null;
     }
-    public static void updateBookBorrow(Object[] stageList) {
-        BookReturn.updatePanel(stageList);
+
+    public static void updateRankList(Object[] stageList) {
+        stageList[2] = new Rank().createPanel(stageList, null);
     }
+
     public static void addBook(Books book) {
         // check if the book is already in the database
         // TODO: SQL

@@ -97,6 +97,7 @@ public class BookBorrow {
                 // search the book
                 String searchMethod = ((ChoiceBox<String>)gridPane.getChildren().get(0)).getValue();
                 ArrayList<Books> searchResult = new ArrayList<>();
+                ArrayList<Books> books = retrieveBooks();
                 // search the book
                 // if the search method is "類別", the search content will be the category
                 if (searchMethod.equals("類別")) {
@@ -172,7 +173,7 @@ public class BookBorrow {
                     // for test, we just remove the book from the searchResult
                     try{
                         Student.borrow_book(searchResult.get(index).getName(), App.getLoginMember().getAccount());
-                        App.updateBookBorrow(stageList);
+                        // App.updateBookBorrow(stageList);
                     }
                     catch(Exception e){
                         System.out.println(e);

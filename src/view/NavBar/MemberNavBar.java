@@ -5,9 +5,10 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import view.App;
 
 public class MemberNavBar {
-    public MenuBar createPanel(Object[] stageList, Stage primaryStage) {
+    public MenuBar createPanel(Object[] stageList, Object[] NavList, Stage primaryStage) {
         MenuBar menuBar = new MenuBar();
         Menu search = new Menu("搜尋");
         search.getItems().add(new MenuItem("搜尋"));
@@ -36,11 +37,13 @@ public class MemberNavBar {
 
         });
         rank.setOnAction(e -> {
+            App.updateRankList(stageList);
             setAllStageListInvisible(stageList);
             ((GridPane) stageList[2]).setVisible(true);
 
         });
         borrow.setOnAction(e -> {
+            // App.updateBookBorrow(stageList);
             setAllStageListInvisible(stageList);
             ((GridPane) stageList[5]).setVisible(true);
 
@@ -51,6 +54,10 @@ public class MemberNavBar {
 
         });
         logout.setOnAction(e -> {
+            App.logout();
+            ((MenuBar) NavList[0]).setVisible(false);
+            ((MenuBar) NavList[2]).setVisible(false);
+            ((MenuBar) NavList[1]).setVisible(true);
             setAllStageListInvisible(stageList);
             ((GridPane) stageList[0]).setVisible(true);
 
