@@ -264,4 +264,15 @@ public class App extends Application{
             JOptionPane.showMessageDialog(null, "書籍不存在");
         }
     }
+    public static void register(Member member){
+        // check if the account is already in the database
+        for(Member m : members) {
+            if(m.getAccount().equals(member.getAccount())) {
+                JOptionPane.showMessageDialog(null, "帳號已存在");
+                return;
+            }
+        }
+        members.add(member);
+        JOptionPane.showMessageDialog(null, "註冊成功");
+    }
 }
