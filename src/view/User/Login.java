@@ -63,7 +63,9 @@ public class Login {
                     JOptionPane.showMessageDialog(null, "登入成功");
                     ((MenuBar) NavList[0]).setVisible(true);
                     ((MenuBar) NavList[1]).setVisible(false);
+                    ((MenuBar) NavList[2]).setVisible(false);
                     ((GridPane) stageList[3]).setVisible(true);
+                    
                 }
                 else if(identityField.getValue().equals("管理員") && App.AdminLogin(accountField.getText(), passwordField.getText(), stageList) != null){
                     JOptionPane.showMessageDialog(null, "登入成功");
