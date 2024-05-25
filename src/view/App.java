@@ -16,6 +16,7 @@ import object.Books;
 import object.Member;
 import object.Student;
 import object.Teacher;
+import view.Book.BookReturn;
 import view.Book.Rank;
 import view.NavBar.AdminNavBar;
 import view.NavBar.MemberNavBar;
@@ -25,6 +26,10 @@ import view.User.PersonalInfo;
 public class App extends Application{
     private static Member currentLoginMember;
     private static Admin currentLoginAdmin;
+
+    
+
+
     public static ArrayList<Member> members = new ArrayList<Member>();
     public static ArrayList<Admin> admins = new ArrayList<Admin>();
     public static ArrayList<Books> books = new ArrayList<Books>();
@@ -53,7 +58,7 @@ public class App extends Application{
         GridPane bookReturnPanal = new view.Book.BookReturn().createPanel(stageList, primaryStage);
         GridPane bookAddPanal = new view.Book.AddBook().createPanel(stageList, primaryStage);
         GridPane manageBookPanel = new view.Book.ManageBook().createPanel(stageList, primaryStage);
-        GridPane membersInfoPanel = new view.User.MembersInfo().createPanel(stageList, primaryStage);
+        GridPane membersInfoPanel = new view.User.MembersInfo().createPanel();
         GridPane bookStatusPane = new view.Book.BookStatus().createPanel(stageList, primaryStage);
         GridPane mainPage = CreateMainPage(stageList, primaryStage);
 
@@ -179,6 +184,7 @@ public class App extends Application{
             if (member.login(username, password)) {
                 setLoginMember(member);
                 PersonalInfo.updatePanel(stageList);
+                BookReturn.updatePanel(stageList);
                 return member;
             }
         }
@@ -213,6 +219,8 @@ public class App extends Application{
     public static void updateRankList(Object[] stageList) {
         stageList[2] = new Rank().createPanel(stageList, null);
     }
+
+
 
     public static void addBook(Books book) {
         // check if the book is already in the database
@@ -274,5 +282,12 @@ public class App extends Application{
         }
         members.add(member);
         JOptionPane.showMessageDialog(null, "註冊成功");
+    }
+
+    public static void updateReturnBookPanel(Object[] stageList) {
+        BookReturn.updatePanel(stageList);
+    }
+    public static void updateBookStatusPanel(Object[] stageList) {
+        
     }
 }
