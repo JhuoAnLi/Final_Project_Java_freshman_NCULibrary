@@ -11,7 +11,7 @@ import view.App;
 
 public class MembersInfo {
     public GridPane gridPane = new GridPane();
-    public GridPane createPanel(Object[] stageList, javafx.stage.Stage primaryStage) {
+    public GridPane createPanel() {
         // set the gap between the elements
         gridPane.setHgap(20);
         gridPane.setVgap(20);

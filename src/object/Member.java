@@ -138,19 +138,13 @@ public abstract class Member extends User {
             JOptionPane.showMessageDialog(null, "Please enter the book name!", "Error", JOptionPane.ERROR_MESSAGE);
 
         } else {
-            System.out.println("Borrow book");
-            System.out.println(bookList.size());
             for (int y = 0; y < bookList.size(); y++) {
-                System.out.println(name);
-                System.out.println(bookList.get(y).getName());
                 if (bookList.get(y) != null && bookList.get(y).getName().equals(name)
                         && bookList.get(y).getStatus().equals("Available")) {
                     ArrayList<Member> memberList = App.getMembers();
                     System.out.println(memberList.size());
                     for (int t = 0; t < memberList.size(); t++) {
                         if (memberList.get(t).getAccount().equals(Account)) {
-                            System.out.println("Borrow book");
-
                             if (memberList.get(t).getBorrow_num() < memberList.get(t).getMax_borrow()) {
                                 memberList.get(t).setBorrow_num(memberList.get(t).getBorrow_num() + 1);
                                 bookList.get(y).setTotalBorrowNum(bookList.get(y).getTotalBorrowNum() + 1);

@@ -163,7 +163,6 @@ public class ManageBook {
                 @Override
                 public void handle(javafx.event.ActionEvent event) {
                     // delete the book
-                    System.out.println(searchResult.get(index));
                     deleteBook(searchResult.get(index));
                     // update the search result
                     updateSearchResult(searchResultTable, searchResult);

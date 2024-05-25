@@ -173,7 +173,6 @@ public class BookBorrow {
                     // for test, we just remove the book from the searchResult
                     try{
                         Student.borrow_book(searchResult.get(index).getName(), App.getLoginMember().getAccount());
-                        // App.updateBookBorrow(stageList);
                     }
                     catch(Exception e){
                         System.out.println(e);
