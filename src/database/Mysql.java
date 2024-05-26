@@ -101,4 +101,33 @@ public class Mysql {
             e.printStackTrace();
         }
     }
+
+    public static void borrowBook(Books book) {
+        try (PreparedStatement stmt = conn.prepareStatement("UPDATE books SET status = 'Unavailable' WHERE name = ?")) {
+            stmt.setString(1, book.getName());
+    
+            int rowsUpdated = stmt.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("A book was borrowed successfully!");
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to borrow book from database");
+            e.printStackTrace();
+        }
+    }
+
+    public static void returnBook(Books book) {
+        try (PreparedStatement stmt = conn.prepareStatement("UPDATE books SET status = 'Available' WHERE name = ?")) {
+            stmt.setString(1, book.getName());
+    
+            int rowsUpdated = stmt.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("A book was returned successfully!");
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to return book to database");
+            e.printStackTrace();
+        }
+    }
+
 }
