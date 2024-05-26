@@ -23,8 +23,8 @@ import view.App;
 
 public class MembersInfo {
     public GridPane gridPane = new GridPane();
-    public GridPane createPanel(Object[] stageList, Stage primaryStage) {
-        // Initialize the gridPane
+    public GridPane createPanel() {
+        // set the gap between the elements
         gridPane.setHgap(20);
         gridPane.setVgap(20);
         gridPane.setAlignment(Pos.CENTER);
