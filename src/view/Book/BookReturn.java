@@ -42,6 +42,9 @@ public class BookReturn {
         // find the books that are borrowed by the current user
         ArrayList<Books> borrowedBooks = new ArrayList<>();
         for(Books book:books){
+            if(book.getBorrower() == null){
+                continue;
+            }
             if(book.getStatus().equals("Unavailable") && book.getBorrower().equals(currentLoginMember.getName())){
                 borrowedBooks.add(book);
             }

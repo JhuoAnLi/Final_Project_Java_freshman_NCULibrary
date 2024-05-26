@@ -6,8 +6,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.scene.control.*;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -67,7 +70,8 @@ public class Rank {
         return gridPane;
     }
     private static ArrayList<Books> getRankList(ArrayList<Books> books){
-        // get the rank list
+        // get the rank list and return by its search times
+        books.sort((book1, book2) -> book2.getsearchCount() - book1.getsearchCount());
 
         return books;
     }

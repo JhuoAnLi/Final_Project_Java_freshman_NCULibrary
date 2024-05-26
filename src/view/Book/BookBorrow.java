@@ -2,14 +2,18 @@ package view.Book;
 
 import java.util.ArrayList;
 
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.*;
 import javafx.stage.Stage;
 import object.Books;
 import object.Student;
@@ -155,10 +159,12 @@ public class BookBorrow {
     }
 
     private ArrayList<Books> retrieveBooks() {
+
         ArrayList<Books> books = new ArrayList<>();
         ArrayList<Books> allBooks = App.getBooks();
         for (Books book : allBooks) {
             if (book.getStatus().equals("Available")) {
+                System.out.println(book.getName());
                 books.add(book);
             }
         }
