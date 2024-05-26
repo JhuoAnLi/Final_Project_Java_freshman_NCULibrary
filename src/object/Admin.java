@@ -37,7 +37,6 @@ public class Admin extends User {
 
         // Add book to database
         try (Connection conn = Mysql.conn) {
-            System.out.println("Connected to the database");
             String sql = "INSERT INTO books (name, author, publisher, ISBN, category, status) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, name);

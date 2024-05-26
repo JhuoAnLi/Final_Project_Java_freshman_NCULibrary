@@ -56,6 +56,9 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
         // test for object books
         ArrayList<Books> books = getBooks();
+        for(Books book: books){
+            System.out.println(book.getName());
+        }
         Object[] stageList = new Object[15];
         Object[] NavList = new Object[3];
 
@@ -208,7 +211,7 @@ public class App extends Application {
     }
 
     public static ArrayList<Books> getBooks() {
-        return books;
+        return Mysql.getAllBooks();
     }
 
     public static Member MemberLogin(String username, String password, Object[] stageList) {
@@ -259,20 +262,30 @@ public class App extends Application {
 
     public static void addBook(Books book) {
         // check if the book is already in the database
-        // TODO: SQL
-        boolean isExist = false;
-        for (Books b : books) {
-            if (b.getName().equals(book.getName())) {
-                isExist = true;
-                break;
+        try (PreparedStatement stmt = Mysql.conn.prepareStatement("SELECT * FROM books")) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String author = rs.getString("author");
+                String publisher = rs.getString("publisher");
+                int ISBN = rs.getInt("ISBN");
+                String category = rs.getString("category");
+                String status = rs.getString("status");
+    
+                Books b = new Books(name, author, publisher, ISBN, category, status);
+                if (b.getName().equals(book.getName())) {
+                    JOptionPane.showMessageDialog(null, "書籍已存在");
+                    return;
+                }
             }
+        } catch (SQLException e) {
+            System.out.println("Failed to retrieve books from database");
+            e.printStackTrace();
         }
-        if (!isExist) {
-            books.add(book);
-            JOptionPane.showMessageDialog(null, "新增成功");
-        } else {
-            JOptionPane.showMessageDialog(null, "書籍已存在");
-        }
+    
+        // If no matching book is found, add the new book
+        books.add(book);
+        JOptionPane.showMessageDialog(null, "新增成功");
     }
 
     public static void modifyBook(Books book) {
