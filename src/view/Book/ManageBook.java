@@ -1,201 +1,186 @@
 package view.Book;
 
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-
-import javafx.scene.Group;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 import view.App;
+import object.Books; // 假设你有这个包
 
 public class ManageBook {
     private GridPane gridPane = new GridPane();
-    GridPane searchResultTable = new GridPane();
+    private GridPane searchResultTable = new GridPane();
     private ArrayList<Button> modifyButtons = new ArrayList<>();
     private ArrayList<Button> deleteButtons = new ArrayList<>();
 
-    public GridPane createPanel(Object[] stageList, javafx.stage.Stage primaryStage) {
-        // initialize the gridPane
+    public GridPane createPanel(Object[] stageList, Stage primaryStage) {
+        // Initialize the gridPane
         gridPane.setHgap(20);
         gridPane.setVgap(20);
-        gridPane.setAlignment(javafx.geometry.Pos.CENTER);
-        gridPane.setStyle("-fx-background-color: #FFFFFF;");
-        
-        // draw the search part, each row behind a modify and a delete button
-        // set search method, using drop down list
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setPadding(new Insets(20));
+        gridPane.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 20; -fx-border-color: #B0C4DE; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;");
+
+        // Add title
+        Label titleLabel = new Label("Book Management");
+        titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+        titleLabel.setTextFill(Color.DARKSLATEBLUE);
+        gridPane.add(titleLabel, 0, 0, 3, 1);
+
+        // Add a separator below the title
+        Separator titleSeparator = new Separator();
+        gridPane.add(titleSeparator, 0, 1, 3, 1);
+
+        // Set search method, using drop down list
         ChoiceBox<String> searchMethod = new ChoiceBox<>();
         searchMethod.getItems().addAll("類別", "作者", "書名");
+        gridPane.add(searchMethod, 0, 2);
 
-        // add search result table
+        // Add search button
+        Button searchButton = new Button("搜尋");
+        searchButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        searchButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5;");
+        searchButton.setOnMouseEntered(e -> searchButton.setStyle("-fx-background-color: #45a049; -fx-text-fill: white; -fx-background-radius: 5;"));
+        searchButton.setOnMouseExited(e -> searchButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5;"));
+        gridPane.add(searchButton, 1, 2);
+
+        // Add search result table
         searchResultTable.setHgap(20);
         searchResultTable.setVgap(20);
-        searchResultTable.setAlignment(javafx.geometry.Pos.CENTER);
-        // add the title
-        Label title = new Label("搜尋結果");
-        searchResultTable.add(title, 0, 0);
+        searchResultTable.setAlignment(Pos.CENTER);
+        searchResultTable.setPadding(new Insets(20));
+        searchResultTable.setStyle("-fx-background-color: #F0F8FF; -fx-padding: 20; -fx-border-color: #B0C4DE; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;");
+        gridPane.add(searchResultTable, 0, 3, 3, 1);
 
-        // add enter button
-        Button searchButton = new Button("搜尋");
+        searchMethod.setOnAction(event -> {
+            gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == 2 && GridPane.getColumnIndex(node) > 1);
         
-        gridPane.add(searchButton, 0, 3);
-        gridPane.add(searchResultTable, 3, 0);
-        gridPane.add(searchMethod, 0, 0);
-
-        searchMethod.addEventHandler(javafx.event.ActionEvent.ACTION, new javafx.event.EventHandler<javafx.event.ActionEvent>() {
-            @Override
-            public void handle(javafx.event.ActionEvent event) {
-                // clear the gridPane's row 
-                while(gridPane.getChildren().size() > 3){
-                    gridPane.getChildren().remove(3);
-                }
-                // when the search method is selected, the search content will be different
-                // set the search content, if the search method is "類別", the search content will be the category
-                if (searchMethod.getValue().equals("類別")) {
-                    ChoiceBox<String> searchContent = new ChoiceBox<>();
-                    searchContent.getItems().addAll("文學", "歷史", "科技", "數學", "語言", "藝術", "其他");
-                    gridPane.add(searchContent, 0, 1);
-                }
-                else if(searchMethod.getValue().equals("書名")){
-                    Label searchContent = new Label("書名");
-                    TextField searchContentField = new TextField();
-                    gridPane.add(searchContent, 0, 1);
-                    gridPane.add(searchContentField, 1, 1);
-                }
-                else if(searchMethod.getValue().equals("作者")){
-                    Label searchContent = new Label("作者");
-                    TextField searchContentField = new TextField();
-                    gridPane.add(searchContent, 0, 1);
-                    gridPane.add(searchContentField, 1, 1);
-                }
+            if (searchMethod.getValue().equals("類別")) {
+                ChoiceBox<String> searchContent = new ChoiceBox<>();
+                searchContent.getItems().addAll("文學", "歷史", "科技", "數學", "語言", "藝術", "其他");
+                gridPane.add(searchContent, 2, 2); // 放在第二行，第三列
+            } else if (searchMethod.getValue().equals("書名") || searchMethod.getValue().equals("作者")) {
+                Label searchContentLabel = new Label(searchMethod.getValue());
+                TextField searchContentField = new TextField();
+                gridPane.add(searchContentLabel, 2, 2); // 放在第二行，第三列
+                gridPane.add(searchContentField, 3, 2); // 放在第二行，第四列
             }
         });
+        
 
-        searchButton.addEventHandler(javafx.event.ActionEvent.ACTION, new javafx.event.EventHandler<javafx.event.ActionEvent>() {
-            @Override
-            public void handle(javafx.event.ActionEvent event) {
-                // get the search method and search content
-                String method = searchMethod.getValue();
-                String content = "";
-                if (method.equals("類別")) {
-                    ChoiceBox<String> searchContent = (ChoiceBox<String>) gridPane.getChildren().get(3);
-                    content = searchContent.getValue();
-                }
-                else if(method.equals("書名") || method.equals("作者")){
-                    TextField searchContent = (TextField) gridPane.getChildren().get(4);
-                    content = searchContent.getText();
-                }
-                // search the book by the search method and search content
-                // the search result will be displayed in the table
-                // the table will be displayed in the search page
-                ArrayList<object.Books> searchResult = searchBooks(App.getBooks(), method, content);
-                updateSearchResult(searchResultTable, searchResult);
+        searchButton.setOnAction(event -> {
+            // Get the search method and search content
+            String method = searchMethod.getValue();
+            String content = "";
+            if (method.equals("類別")) {
+                ChoiceBox<String> searchContent = (ChoiceBox<String>) gridPane.getChildren().get(5);
+                content = searchContent.getValue();
+            } else if (method.equals("書名") || method.equals("作者")) {
+                TextField searchContent = (TextField) gridPane.getChildren().get(6);
+                content = searchContent.getText();
             }
+            // Search the book by the search method and search content
+            ArrayList<Books> searchResult = searchBooks(App.getBooks(), method, content);
+            updateSearchResult(searchResultTable, searchResult, method, content);
         });
 
         return gridPane;
     }
-    private ArrayList<object.Books> searchBooks(ArrayList<object.Books> books, String method, String content){
-        // search the book by the search method and search content
-        ArrayList<object.Books> searchResult = new ArrayList<>();
-        for(object.Books book:books){
-            if(method.equals("類別") && book.getCategory().equals(content)){
+
+    private ArrayList<Books> searchBooks(ArrayList<Books> books, String method, String content) {
+        // Search the book by the search method and search content
+        ArrayList<Books> searchResult = new ArrayList<>();
+        for (Books book : books) {
+            if (method.equals("類別") && book.getCategory().equals(content)) {
                 searchResult.add(book);
-            }
-            else if(method.equals("書名") && book.getName().equals(content)){
+            } else if (method.equals("書名") && book.getName().equals(content)) {
                 searchResult.add(book);
-            }
-            else if(method.equals("作者") && book.getAuthor().equals(content)){
+            } else if (method.equals("作者") && book.getAuthor().equals(content)) {
                 searchResult.add(book);
             }
         }
         return searchResult;
     }
 
-    private void updateSearchResult(GridPane searchResultTable, ArrayList<object.Books> searchResult){
-        // update the search result table
-        // clear the search result table
-        while(searchResultTable.getChildren().size() > 1){
-            searchResultTable.getChildren().remove(1);
-        }
-        // clear the modify and delete button
-        modifyButtons.clear();
-        deleteButtons.clear();
+    private void updateSearchResult(GridPane searchResultTable, ArrayList<Books> searchResult, String method, String content) {
+        // Clear the search result table
+        searchResultTable.getChildren().clear();
 
-        // add the title
+        // Add the title
         Label title = new Label("搜尋結果");
-        searchResultTable.add(title, 0, 0);
-        // add the search result
+        title.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+        searchResultTable.add(title, 0, 0, 3, 1);
 
-        for(int i = 0; i < searchResult.size(); i++){
-            Label book = new Label("書名: " + searchResult.get(i).getName() + " 作者: " + searchResult.get(i).getAuthor() + " 出版社: " + searchResult.get(i).getPublisher() + " ISBN: " + searchResult.get(i).getISBN() + " 類別: " + searchResult.get(i).getCategory());
+        // Add the search results
+        for (int i = 0; i < searchResult.size(); i++) {
+            Label bookLabel = new Label("書名: " + searchResult.get(i).getName() + " 作者: " + searchResult.get(i).getAuthor() + " 出版社: " + searchResult.get(i).getPublisher() + " ISBN: " + searchResult.get(i).getISBN() + " 類別: " + searchResult.get(i).getCategory());
             Button modifyButton = new Button("修改");
             Button deleteButton = new Button("刪除");
 
-            searchResultTable.add(book, 0, i + 1);
+            searchResultTable.add(bookLabel, 0, i + 1);
             searchResultTable.add(modifyButton, 1, i + 1);
             searchResultTable.add(deleteButton, 2, i + 1);
 
-            // add buttons to arrayList
+            // Add buttons to arrayList
             modifyButtons.add(modifyButton);
             deleteButtons.add(deleteButton);
         }
 
-        // add event handler to modify button
-        for(int i = 0; i < modifyButtons.size(); i++){
+        // Add event handler to modify button
+        for (int i = 0; i < modifyButtons.size(); i++) {
             int index = i;
-            modifyButtons.get(index).setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
-                @Override
-                public void handle(javafx.event.ActionEvent event) {
-                    // modify the book
-                    modifyBook(searchResult.get(index));
-                }
-            });
+            modifyButtons.get(index).setOnAction(event -> modifyBook(searchResult.get(index), method, content));
         }
-        // add event handler to delete button
-        for(int i = 0; i < deleteButtons.size(); i++){
+
+        // Add event handler to delete button
+        for (int i = 0; i < deleteButtons.size(); i++) {
             int index = i;
-            deleteButtons.get(index).setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
-                @Override
-                public void handle(javafx.event.ActionEvent event) {
-                    // delete the book
-                    deleteBook(searchResult.get(index));
-                    // update the search result
-                    updateSearchResult(searchResultTable, searchResult);
-                }
+            deleteButtons.get(index).setOnAction(event -> {
+                deleteBook(searchResult.get(index), method, content);
             });
         }
     }
-    private void modifyBook(object.Books book){
-        // modify the book
-        // pop up a window to input the new information
-        Scene scene = new Scene(new Group());
-        javafx.stage.Stage stage = new javafx.stage.Stage();
+
+    private void modifyBook(Books book, String method, String content) {
+        // Modify the book
+        // Pop up a window to input the new information
+        Stage stage = new Stage();
         stage.setTitle("修改書籍");
-        stage.setWidth(300);
-        stage.setHeight(300);
-        stage.setScene(scene);
-        stage.show();
+        stage.setWidth(400);
+        stage.setHeight(400);
+
         GridPane gridPane = new GridPane();
         gridPane.setHgap(20);
         gridPane.setVgap(20);
-        gridPane.setAlignment(javafx.geometry.Pos.CENTER);
-        gridPane.setStyle("-fx-background-color: #FFFFFF;");
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setPadding(new Insets(20));
+        gridPane.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 20; -fx-border-color: #B0C4DE; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;");
+
         Label nameLabel = new Label("書名");
         Label authorLabel = new Label("作者");
         Label publisherLabel = new Label("出版社");
         Label isbnLabel = new Label("ISBN");
         Label categoryLabel = new Label("類別");
-        TextField nameField = new TextField();
-        TextField authorField = new TextField();
-        TextField publisherField = new TextField();
-        TextField ISBNField = new TextField();
-        TextField categoryField = new TextField();
+
+        TextField nameField = new TextField(book.getName());
+        TextField authorField = new TextField(book.getAuthor());
+        TextField publisherField = new TextField(book.getPublisher());
+        TextField ISBNField = new TextField(String.valueOf(book.getISBN()));
+        TextField categoryField = new TextField(book.getCategory());
+
         Button enterButton = new Button("確認");
+        enterButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        enterButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5;");
+        enterButton.setOnMouseEntered(e -> enterButton.setStyle("-fx-background-color: #45a049; -fx-text-fill: white; -fx-background-radius: 5;"));
+        enterButton.setOnMouseExited(e -> enterButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5;"));
+
         gridPane.add(nameLabel, 0, 0);
         gridPane.add(authorLabel, 0, 1);
         gridPane.add(publisherLabel, 0, 2);
@@ -207,44 +192,46 @@ public class ManageBook {
         gridPane.add(ISBNField, 1, 3);
         gridPane.add(categoryField, 1, 4);
         gridPane.add(enterButton, 1, 5);
-        scene.setRoot(gridPane);
+
+        Scene scene = new Scene(gridPane);
+        stage.setScene(scene);
+        stage.show();
+
         enterButton.setOnAction(e -> {
-            if(nameField.getText().equals("")){
-                nameLabel.styleProperty().set("-fx-text-fill: red;");
+            if (nameField.getText().isEmpty()) {
+                nameLabel.setStyle("-fx-text-fill: red;");
             }
-            if(authorField.getText().equals("")){
-                authorLabel.styleProperty().set("-fx-text-fill: red;");
+            if (authorField.getText().isEmpty()) {
+                authorLabel.setStyle("-fx-text-fill: red;");
             }
-            if(publisherField.getText().equals("")){
-                publisherLabel.styleProperty().set("-fx-text-fill: red;");
+            if (publisherField.getText().isEmpty()) {
+                publisherLabel.setStyle("-fx-text-fill: red;");
             }
-            if(ISBNField.getText().equals("")){
-                isbnLabel.styleProperty().set("-fx-text-fill: red;");
+            if (ISBNField.getText().isEmpty()) {
+                isbnLabel.setStyle("-fx-text-fill: red;");
             }
-            if(categoryField.getText().equals("")){
-                categoryLabel.styleProperty().set("-fx-text-fill: red;");
+            if (categoryField.getText().isEmpty()) {
+                categoryLabel.setStyle("-fx-text-fill: red;");
             }
-            if(!nameField.getText().equals("") && !authorField.getText().equals("") && !publisherField.getText().equals("") && !ISBNField.getText().equals("") && !categoryField.getText().equals("")){
+            if (!nameField.getText().isEmpty() && !authorField.getText().isEmpty() && !publisherField.getText().isEmpty() && !ISBNField.getText().isEmpty() && !categoryField.getText().isEmpty()) {
                 book.setName(nameField.getText());
                 book.setAuthor(authorField.getText());
                 book.setPublisher(publisherField.getText());
                 book.setISBN(Integer.parseInt(ISBNField.getText()));
                 book.setCategory(categoryField.getText());
-                // update the search result
                 App.modifyBook(book);
-                updateSearchResult(searchResultTable, App.getBooks());
+                updateSearchResult(searchResultTable, searchBooks(App.getBooks(), method, content), method, content);
                 stage.close();
             }
         });
-
     }
 
-    private void deleteBook(object.Books book){
-        // delete the book, JOptionPane to check if the user want to delete the book
+    private void deleteBook(Books book, String method, String content) {
+        // Delete the book, JOptionPane to check if the user wants to delete the book
         int check = JOptionPane.showConfirmDialog(null, "確定要刪除嗎?", "刪除書籍", JOptionPane.YES_NO_OPTION);
-        if(check == JOptionPane.YES_OPTION){
+        if (check == JOptionPane.YES_OPTION) {
             App.deleteBook(book);
-            updateSearchResult(searchResultTable, App.getBooks());
+            updateSearchResult(searchResultTable, searchBooks(App.getBooks(), method, content), method, content);
         }
     }
 }

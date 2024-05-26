@@ -2,187 +2,166 @@ package view.Book;
 
 import java.util.ArrayList;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import object.Books;
 import object.Student;
 import view.App;
 
 public class BookBorrow {
-    public GridPane createPanel(Object[] stageList, Stage primaryStage, ArrayList<object.Books> books) {
+    public GridPane createPanel(Object[] stageList, Stage primaryStage, ArrayList<Books> books) {
         GridPane gridPane = new GridPane();
-        // draw the book borrow page, need search in the left side and check which book to borrow in the right side
-        // set the gap between the elements
         gridPane.setHgap(20);
         gridPane.setVgap(20);
-        // set the alignment
-        gridPane.setAlignment(javafx.geometry.Pos.CENTER);
-        // set the background color
-        gridPane.setStyle("-fx-background-color: #FFFFFF;");
-        
-        
-        // add the borrow part
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setPadding(new Insets(20));
+        gridPane.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 20; -fx-border-color: #B0C4DE; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;");
+
+        // Add the borrow part
         GridPane borrowBook = new GridPane();
-        updateBorrowPanel(retrieveBooks(), borrowBook, stageList);
-        // add the search part
-        GridPane searchBorrowBook = createSearchPanel(retrieveBooks(), borrowBook, stageList);
+        updateBorrowPanel(books, borrowBook, stageList);
+
+        // Add the search part
+        GridPane searchBorrowBook = createSearchPanel(books, borrowBook, stageList);
+
         gridPane.add(searchBorrowBook, 0, 0);
         gridPane.add(borrowBook, 1, 0);
 
+        return gridPane;
+    }
+
+    private void updateBorrowPanel(ArrayList<Books> books, GridPane borrowBook, Object[] stageList) {
+        borrowBook.setHgap(20);
+        borrowBook.setVgap(20);
+        borrowBook.setAlignment(Pos.CENTER);
+        borrowBook.setPadding(new Insets(20));
+        borrowBook.setStyle("-fx-background-color: #F0F8FF; -fx-padding: 20; -fx-border-color: #B0C4DE; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;");
+
+        // Clear existing children
+        borrowBook.getChildren().clear();
+
+        // Add title
+        Label borrowTitleLabel = new Label("Borrow Books");
+        borrowTitleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+        borrowTitleLabel.setTextFill(Color.DARKSLATEBLUE);
+        borrowBook.add(borrowTitleLabel, 0, 0, 2, 1);
+        GridPane.setHalignment(borrowTitleLabel, HPos.CENTER);
+
+        // Add a separator below the title
+        Separator borrowTitleSeparator = new Separator();
+        borrowBook.add(borrowTitleSeparator, 0, 1, 2, 1);
+
+        // Add the book list for borrowing
+        for (int i = 0; i < books.size(); i++) {
+            Books book = books.get(i);
+            Label bookLabel = new Label((i + 1) + ". " + book.getName());
+            Button borrowButton = new Button("借書");
+        
+            borrowButton.setOnAction(e -> {
+                try {
+                    Student.borrow_book(book.getName(), App.getLoginMember().getAccount());
+                    updateBorrowPanel(retrieveBooks(), borrowBook, stageList);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            });
+        
+            borrowBook.add(bookLabel, 0, i + 2);
+            borrowBook.add(borrowButton, 1, i + 2);
+        }
+    }
+
+    private GridPane createSearchPanel(ArrayList<Books> books, GridPane borrowBook, Object[] stageList) {
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(20);
+        gridPane.setVgap(20);
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setPadding(new Insets(20));
+        gridPane.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 20; -fx-border-color: #B0C4DE; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;");
+
+        // Add title
+        Label searchTitleLabel = new Label("Search Books");
+        searchTitleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+        searchTitleLabel.setTextFill(Color.DARKSLATEBLUE);
+        gridPane.add(searchTitleLabel, 0, 0, 2, 1);
+        GridPane.setHalignment(searchTitleLabel, HPos.CENTER);
+
+        // Add a separator below the title
+        Separator searchTitleSeparator = new Separator();
+        gridPane.add(searchTitleSeparator, 0, 1, 2, 1);
+
+        // Add search method dropdown
+        Label searchMethodLabel = new Label("搜尋方式");
+        searchMethodLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        gridPane.add(searchMethodLabel, 0, 2);
+
+        ChoiceBox<String> searchMethod = new ChoiceBox<>();
+        searchMethod.getItems().addAll("類別", "作者", "書名");
+        gridPane.add(searchMethod, 1, 2);
+
+        // Add search content placeholder
+        TextField searchField = new TextField();
+        searchField.setPromptText("請輸入搜尋條件");
+        gridPane.add(searchField, 0, 3, 2, 1);
+
+        // Add search button
+        Button searchButton = new Button("搜尋");
+        searchButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        searchButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5;");
+        searchButton.setOnMouseEntered(e -> searchButton.setStyle("-fx-background-color: #45a049; -fx-text-fill: white; -fx-background-radius: 5;"));
+        searchButton.setOnMouseExited(e -> searchButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5;"));
+        gridPane.add(searchButton, 1, 4);
+        GridPane.setHalignment(searchButton, HPos.RIGHT);
+
+        searchButton.setOnAction(e -> {
+            String method = searchMethod.getValue();
+            String content = searchField.getText();
+            ArrayList<Books> searchResult = searchBooks(books, method, content);
+            updateBorrowPanel(searchResult, borrowBook, stageList);
+        });
 
         return gridPane;
     }
-    private ArrayList<Books> retrieveBooks(){
+
+    private ArrayList<Books> searchBooks(ArrayList<Books> books, String method, String content) {
+        ArrayList<Books> filteredBooks = new ArrayList<>();
+        for (Books book : books) {
+            switch (method) {
+                case "類別":
+                    if (book.getCategory().equals(content)) {
+                        filteredBooks.add(book);
+                    }
+                    break;
+                case "作者":
+                    if (book.getAuthor().equals(content)) {
+                        filteredBooks.add(book);
+                    }
+                    break;
+                case "書名":
+                    if (book.getName().equals(content)) {
+                        filteredBooks.add(book);
+                    }
+                    break;
+            }
+        }
+        return filteredBooks;
+    }
+
+    private ArrayList<Books> retrieveBooks() {
         ArrayList<Books> books = new ArrayList<>();
-        // filter the books, only show the books that are available
         ArrayList<Books> allBooks = App.getBooks();
-        for(Books book:allBooks){
-            if(book.getStatus().equals("Available")){
+        for (Books book : allBooks) {
+            if (book.getStatus().equals("Available")) {
                 books.add(book);
             }
         }
         return books;
-    }
-    private GridPane createSearchPanel(ArrayList<Books> books, GridPane borrowBook, Object[] stageList){
-        GridPane gridPane = new GridPane();
-        // draw the search part
-        // set the gap between the elements
-        gridPane.setHgap(20);
-        gridPane.setVgap(20);
-        // set the alignment
-        gridPane.setAlignment(javafx.geometry.Pos.CENTER);
-        // set the background color
-        gridPane.setStyle("-fx-background-color: #FFFFFF;");
-
-        // set search method, using drop down list
-        ChoiceBox<String> searchMethod = new ChoiceBox<>();
-        searchMethod.getItems().addAll("類別", "作者", "書名");
-        gridPane.add(searchMethod, 0, 0);
-        Button searchButton = new Button("搜尋");
-        gridPane.add(searchButton, 0, 2);
-
-        // set the search content, if the search method is "類別", the search content will be the category
-        searchMethod.addEventHandler(javafx.event.ActionEvent.ACTION, new javafx.event.EventHandler<javafx.event.ActionEvent>() {
-            @Override
-            public void handle(javafx.event.ActionEvent event) {
-                // clear the gridPane's row 
-                while(gridPane.getChildren().size() > 2){
-                    gridPane.getChildren().remove(2);
-                }
-                // when the search method is selected, the search content will be different
-                // set the search content, if the search method is "類別", the search content will be the category
-                if (searchMethod.getValue().equals("類別")) {
-                    ChoiceBox<String> searchContent = new ChoiceBox<>();
-                    searchContent.getItems().addAll("文學", "歷史", "科技", "數學", "語言", "藝術", "其他");
-                    gridPane.add(searchContent, 0, 1);
-                }
-                else if(searchMethod.getValue().equals("書名")){
-                    TextField searchContent = new TextField();
-                    gridPane.add(searchContent, 0, 1);
-                }
-                else if(searchMethod.getValue().equals("作者")){
-                    TextField searchContent = new TextField();
-                    gridPane.add(searchContent, 0, 1);
-                }
-                
-            }
-        });
-        searchButton.addEventHandler(javafx.event.ActionEvent.ACTION, new javafx.event.EventHandler<javafx.event.ActionEvent>() {
-            @Override
-            public void handle(javafx.event.ActionEvent event) {
-                // search the book
-                String searchMethod = ((ChoiceBox<String>)gridPane.getChildren().get(0)).getValue();
-                ArrayList<Books> searchResult = new ArrayList<>();
-                ArrayList<Books> books = retrieveBooks();
-                // search the book
-                // if the search method is "類別", the search content will be the category
-                if (searchMethod.equals("類別")) {
-                    // search the book by category
-                    String searchContent = ((ChoiceBox<String>)gridPane.getChildren().get(2)).getValue();
-                    for(Books book:books){
-                        if(book.getCategory().equals(searchContent)){
-                            searchResult.add(book);
-                        }
-                    }
-                }
-                else if(searchMethod.equals("書名")){
-                    // search the book by book name
-                    String searchContent = ((TextField)gridPane.getChildren().get(2)).getText();
-                    for(Books book:books){
-                        if(book.getName().equals(searchContent)){
-                            searchResult.add(book);
-                        }
-                    }
-                }
-                else if(searchMethod.equals("作者")){
-                    // search the book by author
-                    String searchContent = ((TextField)gridPane.getChildren().get(2)).getText();
-                    for(Books book:books){
-                        if(book.getAuthor().equals(searchContent)){
-                            searchResult.add(book);
-                        }
-                    }
-                }
-                
-                updateBorrowPanel(searchResult, borrowBook, stageList);
-
-            }
-            
-        });
-        return gridPane;
-    }
-    private void updateBorrowPanel(ArrayList<Books> searchResult, GridPane parentGridPane, Object[] stageList){
-        GridPane gridPane = new GridPane();
-        // draw the borrow part
-        // set the gap between the elements
-        gridPane.setHgap(20);
-        gridPane.setVgap(20);
-        // set the alignment
-        gridPane.setAlignment(javafx.geometry.Pos.CENTER);
-        // set the background color
-        gridPane.setStyle("-fx-background-color: #FFFFFF;");
-
-        // clear
-        while(gridPane.getChildren().size() > 0){
-            gridPane.getChildren().remove(0);
-        }
-        while(parentGridPane.getChildren().size() > 0){
-            parentGridPane.getChildren().remove(0);
-        }
-
-        // show searchResult by table, add borrow button at the end of each row
-        ArrayList<Button> borrowButtonList = new ArrayList<>();
-        for(int i = 0; i < searchResult.size(); i++){
-            Label bookName = new Label(searchResult.get(i).getName());
-            gridPane.add(bookName, 0, i);
-            Button borrowButton = new Button("借書");
-            borrowButtonList.add(borrowButton);
-            gridPane.add(borrowButton, 1, i);
-        }
-
-        for(int i = 0; i < borrowButtonList.size(); i++){
-            int index = i;
-            borrowButtonList.get(i).addEventHandler(javafx.event.ActionEvent.ACTION, new javafx.event.EventHandler<javafx.event.ActionEvent>() {
-                @Override
-                public void handle(javafx.event.ActionEvent event) {
-                    // borrow the book, by sql manage?
-                    // for test, we just remove the book from the searchResult
-                    try{
-                        Student.borrow_book(searchResult.get(index).getName(), App.getLoginMember().getAccount());
-                    }
-                    catch(Exception e){
-                        System.out.println(e);
-                    }
-                    ArrayList<Books> updateList = retrieveBooks();
-                    updateBorrowPanel(updateList, parentGridPane, stageList);
-                }
-            });
-        }
-
-        parentGridPane.add(gridPane, 1, 0);
     }
 }
