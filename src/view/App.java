@@ -38,23 +38,41 @@ import database.Mysql;
 public class App extends Application {
     private static Member currentLoginMember;
     private static Admin currentLoginAdmin;
-
-    
-
-
     public static ArrayList<Member> members = new ArrayList<Member>();
     public static ArrayList<Admin> admins = new ArrayList<Admin>();
-    public static ArrayList<Books> books = new ArrayList<Books>();
+    public static ArrayList<Books> books = Mysql.getAllBooks();
 
     public static void main(String[] args) {
         members.add(new Student("student1", "student1", "student1", "Student", 20));
         members.add(new Teacher("teacher1", "teacher1", "teacher1", "Teacher", 20));
         admins.add(new Admin("admin", "admin", "admin"));
-        books.add(new Books("book1", "author1", "category1", 1, "文學", "Available"));
-        books.add(new Books("book2", "author2", "category2", 2, "文學", "Available"));
-        // books.add(new Books("book3", "author3", "category2", 3, "文學", "Available"));
+        firstTime();
         Mysql mysql = new Mysql(); // connect to database
         launch(args);
+    }
+
+    public static void firstTime() {
+        addBook(new Books("To Kill a Mockingbird", "Harper Lee", "J.B. Lippincott & Co.", 978002609, "文學", "Available"));
+        addBook(new Books("1984", "George Orwell", "Secker & Warburg", 978045135, "文學", "Available"));
+        addBook(new Books("Pride and Prejudice", "Jane Austen", "T. Egerton", 978019518, "文學", "Available"));
+        addBook(new Books("The Great Gatsby", "F. Scott Fitzgerald", "Charles Scribner's Sons", 978027355, "文學", "Available"));
+        addBook(new Books("Moby-Dick", "Herman Melville", "Harper & Brothers", 978280786, "文學", "Available"));
+
+        addBook(new Books("Sapiens: A Brief History of Humankind", "Yuval Noah Harari", "Harvill Secker", 978090088, "歷史", "Available"));
+        addBook(new Books("Guns, Germs, and Steel", "Jared Diamond", "W. W. Norton & Company", 978039558, "歷史", "Available"));
+        addBook(new Books("The History of the Ancient World", "Susan Wise Bauer", "W. W. Norton & Company", 978039348, "歷史", "Available"));
+
+        addBook(new Books("Clean Code", "Robert C. Martin", "Prentice Hall", 132350884, "科技", "Available"));
+        addBook(new Books("The Pragmatic Programmer", "Andrew Hunt", "Addison-Wesley", 978616224, "科技", "Available"));
+
+        addBook(new Books("The Art of Computer Programming", "Donald E. Knuth", "Addison-Wesley", 978026847, "數學", "Available"));
+        addBook(new Books("A Mathematician's Apology", "G. H. Hardy", "Cambridge University Press", 978027067, "數學", "Available"));
+
+        addBook(new Books("Learning Python", "Mark Lutz", "O'Reilly Media", 979355739, "語言", "Available"));
+        addBook(new Books("The Elements of Style", "William Strunk Jr.", "Pearson", 975309023, "語言", "Available"));
+
+        addBook(new Books("The Story of Art", "E.H. Gombrich", "Phaidon Press", 97832470, "藝術", "Available"));
+
     }
 
     @Override
@@ -157,7 +175,7 @@ public class App extends Application {
         int height = 600;
         gridPane.setPrefWidth(width);
         gridPane.setPrefHeight(height);
-        gridPane.setAlignment(javafx.geometry.Pos.CENTER);
+        gridPane.setAlignment(javafx.geometry.Pos.TOP_CENTER);
         gridPane.setStyle("-fx-background-color: linear-gradient(to bottom, #ffffff, #e6e6e6);");
 
         Rectangle background = new Rectangle(width, height);
@@ -213,7 +231,7 @@ public class App extends Application {
     }
 
     public static ArrayList<Books> getBooks() {
-        return Mysql.getAllBooks();
+        return books;
     }
 
     public static Member MemberLogin(String username, String password, Object[] stageList) {
@@ -267,6 +285,7 @@ public class App extends Application {
 
     public static void addBook(Books book) {
         // check if the book is already in the database
+        books.add(book);
         try (PreparedStatement stmt = Mysql.conn.prepareStatement("SELECT * FROM books")) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {

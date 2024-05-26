@@ -8,7 +8,6 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -26,7 +25,7 @@ public class Rank {
         // Set up the GridPane
         gridPane.setHgap(20);
         gridPane.setVgap(20);
-        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setAlignment(Pos.TOP_CENTER);
         gridPane.setPadding(new Insets(20));
         gridPane.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 20; -fx-border-color: #B0C4DE; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;");
 
@@ -79,10 +78,13 @@ public class Rank {
         ArrayList<Books> books = App.getBooks();
         gridPane.getChildren().remove(1, gridPane.getChildren().size());
         ArrayList<Books> rankList = getRankList(books);
+        
+        // Sort rankList based on totalBorrowNum in descending order
+        rankList.sort((book1, book2) -> book2.getTotalBorrowNum() - book1.getTotalBorrowNum());
+
         for(int i = 0; i < rankList.size(); i++){
             Label rank = new Label("第" + (i + 1) + "名: " + rankList.get(i).getName());
             gridPane.add(rank, 0, i + 1);
         }
-
-    }   
+    }
 }

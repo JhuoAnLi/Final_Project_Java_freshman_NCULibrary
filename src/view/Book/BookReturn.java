@@ -20,7 +20,7 @@ public class BookReturn {
         gridPane.setHgap(20);
         gridPane.setVgap(20);
         // set the alignment
-        gridPane.setAlignment(javafx.geometry.Pos.CENTER);
+        gridPane.setAlignment(javafx.geometry.Pos.TOP_CENTER);
         // set the background color
         gridPane.setStyle("-fx-background-color: #FFFFFF;");
 

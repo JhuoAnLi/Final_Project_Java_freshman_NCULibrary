@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import database.Mysql;
 import view.App;
 
 public abstract class Member extends User {
@@ -150,6 +151,7 @@ public abstract class Member extends User {
                                 bookList.get(y).setTotalBorrowNum(bookList.get(y).getTotalBorrowNum() + 1);
                                 bookList.get(y).setBorrower(Account);
                                 bookList.get(y).setStatus("Unavailable");
+                                Mysql.borrowBook(bookList.get(y));
                                 bookList.get(y).setBorrow_time(LocalDateTime.now());
                                 // bookList.get(y).setReturn_time(memberList.get(t).getDeadlinee());
                                 for (int g = 0; g < borrowed_books.length; g++) {
@@ -292,6 +294,7 @@ public abstract class Member extends User {
                                 memberList.get(t).setBorrow_num(memberList.get(t).getBorrow_num() + 1);
                                 bookList.get(y).setBorrower(Account);
                                 bookList.get(y).setStatus("Unavailable");
+                                Mysql.borrowBook(bookList.get(y);
                                 bookList.get(y).setBorrow_time(LocalDateTime.now());
                                 // bookList.get(y).setReturn_time(memberList.get(t).getDeadlinee());
                                 for (int g = 0; g < borrowed_books.length; g++) {
@@ -433,6 +436,7 @@ public abstract class Member extends User {
                                 memberList.get(t).setBorrow_num(memberList.get(t).getBorrow_num() + 1);
                                 bookList.get(y).setBorrower(Account);
                                 bookList.get(y).setStatus("Unavailable");
+                                Mysql.borrowBook(bookList.get(y));
                                 bookList.get(y).setBorrow_time(LocalDateTime.now());
                                 // bookList.get(y).setReturn_time(memberList.get(t).getDeadlinee());
                                 for (int g = 0; g < borrowed_books.length; g++) {
@@ -704,6 +708,7 @@ public abstract class Member extends User {
 
         bookList.get(bookIndex).setBorrower("");
         bookList.get(bookIndex).setStatus("Available");
+        Mysql.returnBook(bookList.get(bookIndex));
 
     }
     public int getBill(){
