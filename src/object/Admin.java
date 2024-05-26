@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import view.App;
+import database.Mysql;
 
 public class Admin extends User {
     public static Books[] books = new Books[500];
@@ -25,20 +26,6 @@ public class Admin extends User {
         super(name, account, password);
     }
 
-    private Connection connectToDatabase() throws SQLException {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            System.out.println("MySQL JDBC Driver not found. Include it in your library path ");
-            e.printStackTrace();
-            return null;
-        }
-        String url = "jdbc:mysql://localhost:3306/java_final_project";
-        String user = "java";
-        String password = "java";
-        return DriverManager.getConnection(url, user, password);
-    }
-
     public void add_book(String name, String author, String publisher, int ISBN, String category, String status) {
         Books book = new Books(name, author, publisher, ISBN, category, status);
         for (int i = 0; i < books.length; i++) {
@@ -49,8 +36,7 @@ public class Admin extends User {
         }
 
         // Add book to database
-        try (Connection conn = connectToDatabase()) {
-            System.out.println("Connected to the database");
+        try (Connection conn = Mysql.conn) {
             String sql = "INSERT INTO books (name, author, publisher, ISBN, category, status) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, name);

@@ -1,5 +1,9 @@
 package view;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -29,6 +33,7 @@ import view.NavBar.NavBar;
 import view.User.Login;
 import view.User.PersonalInfo;
 import javafx.scene.text.Text;
+import database.Mysql;
 
 public class App extends Application {
     private static Member currentLoginMember;
@@ -48,6 +53,7 @@ public class App extends Application {
         books.add(new Books("book1", "author1", "category1", 1, "文學", "Available"));
         books.add(new Books("book2", "author2", "category2", 2, "文學", "Available"));
         // books.add(new Books("book3", "author3", "category2", 3, "文學", "Available"));
+        Mysql mysql = new Mysql(); // connect to database
         launch(args);
     }
 
@@ -207,7 +213,7 @@ public class App extends Application {
     }
 
     public static ArrayList<Books> getBooks() {
-        return books;
+        return Mysql.getAllBooks();
     }
 
     public static Member MemberLogin(String username, String password, Object[] stageList) {
@@ -261,47 +267,47 @@ public class App extends Application {
 
     public static void addBook(Books book) {
         // check if the book is already in the database
-        // TODO: SQL
-        boolean isExist = false;
-        for (Books b : books) {
-            if (b.getName().equals(book.getName())) {
-                isExist = true;
-                break;
+        try (PreparedStatement stmt = Mysql.conn.prepareStatement("SELECT * FROM books")) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String author = rs.getString("author");
+                String publisher = rs.getString("publisher");
+                int ISBN = rs.getInt("ISBN");
+                String category = rs.getString("category");
+                String status = rs.getString("status");
+    
+                Books b = new Books(name, author, publisher, ISBN, category, status);
+                if (b.getName().equals(book.getName())) {
+                    JOptionPane.showMessageDialog(null, "書籍已存在");
+                    return;
+                }
             }
+        } catch (SQLException e) {
+            System.out.println("Failed to retrieve books from database");
+            e.printStackTrace();
         }
-        if (!isExist) {
-            books.add(book);
-            JOptionPane.showMessageDialog(null, "新增成功");
-        } else {
-            JOptionPane.showMessageDialog(null, "書籍已存在");
-        }
+    
+        // If no matching book is found, add the new book
+        Mysql.addBook(book); // call the method to add the book to the database
+        JOptionPane.showMessageDialog(null, "新增成功");
     }
 
     public static void modifyBook(Books book) {
         // check if the book is in DB
-        // TODO: SQL
-        boolean isExist = false;
-        for (int i = 0; i < books.size(); i++) {
-            if (books.get(i).getName().equals(book.getName())) {
-                isExist = true;
-                books.set(i, book);
-                JOptionPane.showMessageDialog(null, "修改成功");
-                break;
-            }
-        }
-        if (!isExist) {
-            JOptionPane.showMessageDialog(null, "書籍不存在");
-        }
+        Mysql.modifyBook(book); // call the method to update the book in the database
+        JOptionPane.showMessageDialog(null, "更新成功");
     }
 
     public static void deleteBook(Books book) {
         // check if the book is in DB
-        // TODO: SQL
         boolean isExist = false;
+        books = Mysql.getAllBooks(); // update the books list
         for (int i = 0; i < books.size(); i++) {
             if (books.get(i).getName().equals(book.getName())) {
                 isExist = true;
                 books.remove(i);
+                Mysql.deleteBook(book.getName()); // call the method to delete the book from the database
                 JOptionPane.showMessageDialog(null, "刪除成功");
                 break;
             }

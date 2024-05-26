@@ -13,6 +13,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import view.App;
 import object.Books; // 假设你有这个包
+import database.Mysql;
 
 public class ManageBook {
     private GridPane gridPane = new GridPane();
