@@ -287,19 +287,8 @@ public class App extends Application {
 
     public static void modifyBook(Books book) {
         // check if the book is in DB
-        // TODO: SQL
-        boolean isExist = false;
-        for (int i = 0; i < books.size(); i++) {
-            if (books.get(i).getName().equals(book.getName())) {
-                isExist = true;
-                books.set(i, book);
-                JOptionPane.showMessageDialog(null, "修改成功");
-                break;
-            }
-        }
-        if (!isExist) {
-            JOptionPane.showMessageDialog(null, "書籍不存在");
-        }
+        Mysql.modifyBook(book); // call the method to update the book in the database
+        JOptionPane.showMessageDialog(null, "更新成功");
     }
 
     public static void deleteBook(Books book) {

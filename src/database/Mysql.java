@@ -63,4 +63,23 @@ public class Mysql {
             e.printStackTrace();
         }
     }
+
+    public static void modifyBook(Books book) {
+        try (PreparedStatement stmt = conn.prepareStatement("UPDATE books SET author = ?, publisher = ?, ISBN = ?, category = ?, status = ? WHERE name = ?")) {
+            stmt.setString(1, book.getAuthor());
+            stmt.setString(2, book.getPublisher());
+            stmt.setInt(3, book.getISBN());
+            stmt.setString(4, book.getCategory());
+            stmt.setString(5, book.getStatus());
+            stmt.setString(6, book.getName());
+    
+            int rowsUpdated = stmt.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("A book was updated successfully!");
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to update book in database");
+            e.printStackTrace();
+        }
+    }
 }
