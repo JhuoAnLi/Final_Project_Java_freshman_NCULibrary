@@ -1,0 +1,6 @@
+1. 串好mysql
+    - import library
+    - connect sql function
+    - 總算弄好了，launch.json的classpaths要包含jdbc的jar檔案
+2. 處理books存到sql
+    - addbook 

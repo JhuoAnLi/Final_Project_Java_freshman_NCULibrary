@@ -1,23 +1,28 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "java",
-            "name": "App",
-            "request": "launch",
-            "mainClass": "App",
-            "projectName": "library system_f3e8e7f5"
-        },
-        {
-            "type": "java",
-            "name": "Launch Current File",
-            "request": "launch",
-            "mainClass": "${file}",
-            "classPaths": [
-                "${workspaceFolder}/bin"
-            ],
-            "cwd": "${workspaceFolder}/bin",
-            "vmArgs": "--module-path C:\\Users\\steph\\Downloads\\javafx-sdk-22.0.1\\lib --add-modules=javafx.controls,javafx.fxml"
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "App",
+      "request": "launch",
+      "mainClass": "App",
+      "projectName": "library system_f3e8e7f5",
+      "classPaths": [
+        "${workspaceFolder}/bin",
+        "d:\\mysql-connector-j-8.4.0\\mysql-connector-j-8.4.0.jar"
+      ]
+    },
+    {
+      "type": "java",
+      "name": "Launch Current File",
+      "request": "launch",
+      "mainClass": "${file}",
+      "classPaths": [
+        "${workspaceFolder}/bin",
+        "d:\\mysql-connector-j-8.4.0\\mysql-connector-j-8.4.0.jar"
+      ],
+      "cwd": "${workspaceFolder}/bin",
+      "vmArgs": "--module-path D:/javafx-sdk-22.0.1/lib --add-modules javafx.controls,javafx.fxml"
+    }
+  ]
 }

@@ -1,5 +1,9 @@
 package view;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -28,6 +32,7 @@ import view.NavBar.NavBar;
 import view.User.Login;
 import view.User.PersonalInfo;
 import javafx.scene.text.Text;
+import database.Mysql;
 
 public class App extends Application {
     private static Member currentLoginMember;
@@ -43,6 +48,7 @@ public class App extends Application {
         books.add(new Books("book1", "author1", "category1", 1, "文學", "Available"));
         books.add(new Books("book2", "author2", "category2", 2, "文學", "Available"));
         // books.add(new Books("book3", "author3", "category2", 3, "文學", "Available"));
+        Mysql mysql = new Mysql(); // connect to database
         launch(args);
     }
 
