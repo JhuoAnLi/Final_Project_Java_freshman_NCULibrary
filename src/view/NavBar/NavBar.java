@@ -47,10 +47,6 @@ public class NavBar {
         menuBar.getMenus().add(rank);
 
         menuBar.setPrefWidth(800);
-
-        menuBar.setOnMouseClicked(e -> {
-            System.out.println("menu bar clicked");
-        });
         
         return menuBar;
         

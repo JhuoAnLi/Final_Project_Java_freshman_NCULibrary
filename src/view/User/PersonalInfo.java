@@ -32,6 +32,10 @@ public class PersonalInfo {
     public static void updatePanel(Object[] stageList) {
         GridPane gridPane = (GridPane) stageList[6];
         // get current user's personal info
+
+        // clear the gridPane
+        gridPane.getChildren().remove(0, gridPane.getChildren().size());
+
         Member member = App.getLoginMember();
         if (member == null) {
             return;

@@ -43,12 +43,12 @@ public class MemberNavBar {
 
         });
         borrow.setOnAction(e -> {
-            // App.updateBookBorrow(stageList);
             setAllStageListInvisible(stageList);
             ((GridPane) stageList[5]).setVisible(true);
 
         });
         returnBook.setOnAction(e -> {
+            App.updateReturnBookPanel(stageList);
             setAllStageListInvisible(stageList);
             ((GridPane) stageList[7]).setVisible(true);
 
