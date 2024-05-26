@@ -82,4 +82,23 @@ public class Mysql {
             e.printStackTrace();
         }
     }
+
+    public static void addBook(Books book) {
+        try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO books (name, author, publisher, ISBN, category, status) VALUES (?, ?, ?, ?, ?, ?)")) {
+            stmt.setString(1, book.getName());
+            stmt.setString(2, book.getAuthor());
+            stmt.setString(3, book.getPublisher());
+            stmt.setInt(4, book.getISBN());
+            stmt.setString(5, book.getCategory());
+            stmt.setString(6, book.getStatus());
+    
+            int rowsInserted = stmt.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("A new book was inserted successfully!");
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to insert book into database");
+            e.printStackTrace();
+        }
+    }
 }

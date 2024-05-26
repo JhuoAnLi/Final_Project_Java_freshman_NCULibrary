@@ -281,7 +281,7 @@ public class App extends Application {
         }
     
         // If no matching book is found, add the new book
-        books.add(book);
+        Mysql.addBook(book); // call the method to add the book to the database
         JOptionPane.showMessageDialog(null, "新增成功");
     }
 
