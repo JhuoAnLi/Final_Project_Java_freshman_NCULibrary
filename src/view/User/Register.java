@@ -9,10 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.control.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
@@ -110,6 +110,11 @@ public class Register {
                 register(account, password, name, age, identity);
                 messageLabel.setText("註冊成功！");
                 messageLabel.setTextFill(Color.GREEN);
+
+                // set page to login page
+                setAllStageListInvisible(stageList);
+                ((GridPane) stageList[0]).setVisible(true);
+                
             } catch (Exception ex) {
                 messageLabel.setText("註冊失敗，請檢查輸入資訊。");
                 messageLabel.setTextFill(Color.RED);
@@ -126,7 +131,7 @@ public class Register {
         // the account will have the password, name, age, identity
         // TODO: by SQL maybe?
         // check the field is empty or not
-        if(account.equals("") || password.equals("") || name.equals("") || ageField.getText().equals("")){
+        if(account.equals("") || password.equals("") || name.equals("") || age == 0){
             JOptionPane.showMessageDialog(null, "請輸入完整資料");
         }
         
@@ -140,13 +145,18 @@ public class Register {
             App.register(teacher);
         }
         clearField();
-
     }
     private void clearField(){
         accountField.clear();
         passwordField.clear();
         ageField.clear();
         nameField.clear();
+    }
+    private void setAllStageListInvisible(Object[] stageList) {
+        for (int i = 0; i < stageList.length; i++) {
+            if(stageList[i] == null) break;
+            ((GridPane) stageList[i]).setVisible(false);
+        }
     }
     
 }
