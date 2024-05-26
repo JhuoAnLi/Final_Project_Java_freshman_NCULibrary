@@ -2,6 +2,7 @@ package view.Book;
 
 import java.util.ArrayList;
 
+import database.Mysql;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -136,7 +137,7 @@ public class Search {
             } else {
                 content = searchField.getText();
             }
-            ArrayList<object.Books> searchResult = searchBooks(books, method, content);
+            ArrayList<object.Books> searchResult = searchBooks(Mysql.getAllBooks(), method, content);
             updateSearchResult(searchResultTable, searchResult);
         });
 
