@@ -4,3 +4,5 @@
     - 總算弄好了，launch.json的classpaths要包含jdbc的jar檔案
 2. 處理books存到sql
     - addbook 
+    - modify -> 在mysql寫一個function，傳入書名，執行sql prompt
+    - delete -> 一樣寫一個新的function在mysql

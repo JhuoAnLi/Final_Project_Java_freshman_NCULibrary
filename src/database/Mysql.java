@@ -50,4 +50,17 @@ public class Mysql {
         }
         return books;
     }
+
+    public static void deleteBook(String bookName) {
+        try (PreparedStatement stmt = conn.prepareStatement("DELETE FROM books WHERE name = ?")) {
+            stmt.setString(1, bookName);
+            int rowsDeleted = stmt.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("A book was deleted successfully!");
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to delete book from database");
+            e.printStackTrace();
+        }
+    }
 }

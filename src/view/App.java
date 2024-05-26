@@ -56,9 +56,6 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
         // test for object books
         ArrayList<Books> books = getBooks();
-        for(Books book: books){
-            System.out.println(book.getName());
-        }
         Object[] stageList = new Object[15];
         Object[] NavList = new Object[3];
 
@@ -307,12 +304,13 @@ public class App extends Application {
 
     public static void deleteBook(Books book) {
         // check if the book is in DB
-        // TODO: SQL
         boolean isExist = false;
+        books = Mysql.getAllBooks(); // update the books list
         for (int i = 0; i < books.size(); i++) {
             if (books.get(i).getName().equals(book.getName())) {
                 isExist = true;
                 books.remove(i);
+                Mysql.deleteBook(book.getName()); // call the method to delete the book from the database
                 JOptionPane.showMessageDialog(null, "刪除成功");
                 break;
             }
