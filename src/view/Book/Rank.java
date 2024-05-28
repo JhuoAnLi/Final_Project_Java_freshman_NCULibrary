@@ -45,7 +45,7 @@ public class Rank {
 
         // Create TableView for ranking
         TableView<Books> rankTable = new TableView<>();
-        rankTable.setPrefWidth(600);
+        rankTable.setPrefWidth(500);
         rankTable.setPrefHeight(400);
 
         TableColumn<Books, String> rankColumn = new TableColumn<>("排名");
@@ -54,8 +54,12 @@ public class Rank {
         TableColumn<Books, String> nameColumn = new TableColumn<>("書名");
         nameColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getName()));
 
+        TableColumn<Books, String> borrowColumn = new TableColumn<>("借閱次數");
+        borrowColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTotalBorrowNum() + "次"));
+
         rankTable.getColumns().add(rankColumn);
         rankTable.getColumns().add(nameColumn);
+        rankTable.getColumns().add(borrowColumn);
 
         // Get rank list and add to table
         ArrayList<Books> rankList = getRankList(books);
