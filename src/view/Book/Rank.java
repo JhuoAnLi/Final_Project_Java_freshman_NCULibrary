@@ -45,7 +45,7 @@ public class Rank {
 
         // Create TableView for ranking
         TableView<Books> rankTable = new TableView<>();
-        rankTable.setPrefWidth(500);
+        rankTable.setPrefWidth(400);
         rankTable.setPrefHeight(400);
 
         TableColumn<Books, String> rankColumn = new TableColumn<>("排名");

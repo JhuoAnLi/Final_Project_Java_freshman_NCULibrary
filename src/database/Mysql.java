@@ -65,14 +65,15 @@ public class Mysql {
     }
 
     public static void modifyBook(Books book) {
-        try (PreparedStatement stmt = conn.prepareStatement("UPDATE books SET author = ?, publisher = ?, ISBN = ?, category = ?, status = ? WHERE name = ?")) {
+        try (PreparedStatement stmt = conn.prepareStatement(
+                "UPDATE books SET author = ?, publisher = ?, ISBN = ?, category = ?, status = ? WHERE name = ?")) {
             stmt.setString(1, book.getAuthor());
             stmt.setString(2, book.getPublisher());
             stmt.setInt(3, book.getISBN());
             stmt.setString(4, book.getCategory());
             stmt.setString(5, book.getStatus());
             stmt.setString(6, book.getName());
-    
+
             int rowsUpdated = stmt.executeUpdate();
             if (rowsUpdated > 0) {
                 System.out.println("A book was updated successfully!");
@@ -84,14 +85,15 @@ public class Mysql {
     }
 
     public static void addBook(Books book) {
-        try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO books (name, author, publisher, ISBN, category, status) VALUES (?, ?, ?, ?, ?, ?)")) {
+        try (PreparedStatement stmt = conn.prepareStatement(
+                "INSERT INTO books (name, author, publisher, ISBN, category, status) VALUES (?, ?, ?, ?, ?, ?)")) {
             stmt.setString(1, book.getName());
             stmt.setString(2, book.getAuthor());
             stmt.setString(3, book.getPublisher());
             stmt.setInt(4, book.getISBN());
             stmt.setString(5, book.getCategory());
             stmt.setString(6, book.getStatus());
-    
+
             int rowsInserted = stmt.executeUpdate();
             if (rowsInserted > 0) {
                 System.out.println("A new book was inserted successfully!");
@@ -105,7 +107,7 @@ public class Mysql {
     public static void borrowBook(Books book) {
         try (PreparedStatement stmt = conn.prepareStatement("UPDATE books SET status = 'Unavailable' WHERE name = ?")) {
             stmt.setString(1, book.getName());
-    
+
             int rowsUpdated = stmt.executeUpdate();
             if (rowsUpdated > 0) {
                 System.out.println("A book was borrowed successfully!");
@@ -119,7 +121,7 @@ public class Mysql {
     public static void returnBook(Books book) {
         try (PreparedStatement stmt = conn.prepareStatement("UPDATE books SET status = 'Available' WHERE name = ?")) {
             stmt.setString(1, book.getName());
-    
+
             int rowsUpdated = stmt.executeUpdate();
             if (rowsUpdated > 0) {
                 System.out.println("A book was returned successfully!");

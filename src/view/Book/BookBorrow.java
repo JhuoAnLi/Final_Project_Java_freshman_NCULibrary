@@ -24,7 +24,7 @@ public class BookBorrow {
         GridPane gridPane = new GridPane();
         gridPane.setHgap(20);
         gridPane.setVgap(20);
-        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setAlignment(Pos.TOP_CENTER);
         gridPane.setPadding(new Insets(20));
         gridPane.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 20; -fx-border-color: #B0C4DE; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;");
 
@@ -44,7 +44,7 @@ public class BookBorrow {
     private void updateBorrowPanel(ArrayList<Books> books, GridPane borrowBook, Object[] stageList) {
         borrowBook.setHgap(20);
         borrowBook.setVgap(20);
-        borrowBook.setAlignment(Pos.CENTER);
+        borrowBook.setAlignment(Pos.TOP_CENTER);
         borrowBook.setPadding(new Insets(20));
         borrowBook.setStyle("-fx-background-color: #F0F8FF; -fx-padding: 20; -fx-border-color: #B0C4DE; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;");
 
@@ -86,7 +86,7 @@ public class BookBorrow {
         GridPane gridPane = new GridPane();
         gridPane.setHgap(20);
         gridPane.setVgap(20);
-        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setAlignment(Pos.TOP_CENTER);
         gridPane.setPadding(new Insets(20));
         gridPane.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 20; -fx-border-color: #B0C4DE; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;");
 

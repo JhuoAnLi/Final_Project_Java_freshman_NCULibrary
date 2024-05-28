@@ -52,21 +52,28 @@ public class App extends Application {
     }
 
     public static void firstTime() {
-        addBook(new Books("To Kill a Mockingbird", "Harper Lee", "J.B. Lippincott & Co.", 978002609, "文學", "Available"));
+        addBook(new Books("To Kill a Mockingbird", "Harper Lee", "J.B. Lippincott & Co.", 978002609, "文學",
+                "Available"));
         addBook(new Books("1984", "George Orwell", "Secker & Warburg", 978045135, "文學", "Available"));
         addBook(new Books("Pride and Prejudice", "Jane Austen", "T. Egerton", 978019518, "文學", "Available"));
-        addBook(new Books("The Great Gatsby", "F. Scott Fitzgerald", "Charles Scribner's Sons", 978027355, "文學", "Available"));
+        addBook(new Books("The Great Gatsby", "F. Scott Fitzgerald", "Charles Scribner's Sons", 978027355, "文學",
+                "Available"));
         addBook(new Books("Moby-Dick", "Herman Melville", "Harper & Brothers", 978280786, "文學", "Available"));
 
-        addBook(new Books("Sapiens: A Brief History of Humankind", "Yuval Noah Harari", "Harvill Secker", 978090088, "歷史", "Available"));
-        addBook(new Books("Guns, Germs, and Steel", "Jared Diamond", "W. W. Norton & Company", 978039558, "歷史", "Available"));
-        addBook(new Books("The History of the Ancient World", "Susan Wise Bauer", "W. W. Norton & Company", 978039348, "歷史", "Available"));
+        addBook(new Books("Sapiens: A Brief History of Humankind", "Yuval Noah Harari", "Harvill Secker", 978090088,
+                "歷史", "Available"));
+        addBook(new Books("Guns, Germs, and Steel", "Jared Diamond", "W. W. Norton & Company", 978039558, "歷史",
+                "Available"));
+        addBook(new Books("The History of the Ancient World", "Susan Wise Bauer", "W. W. Norton & Company", 978039348,
+                "歷史", "Available"));
 
         addBook(new Books("Clean Code", "Robert C. Martin", "Prentice Hall", 132350884, "科技", "Available"));
         addBook(new Books("The Pragmatic Programmer", "Andrew Hunt", "Addison-Wesley", 978616224, "科技", "Available"));
 
-        addBook(new Books("The Art of Computer Programming", "Donald E. Knuth", "Addison-Wesley", 978026847, "數學", "Available"));
-        addBook(new Books("A Mathematician's Apology", "G. H. Hardy", "Cambridge University Press", 978027067, "數學", "Available"));
+        addBook(new Books("The Art of Computer Programming", "Donald E. Knuth", "Addison-Wesley", 978026847, "數學",
+                "Available"));
+        addBook(new Books("A Mathematician's Apology", "G. H. Hardy", "Cambridge University Press", 978027067, "數學",
+                "Available"));
 
         addBook(new Books("Learning Python", "Mark Lutz", "O'Reilly Media", 979355739, "語言", "Available"));
         addBook(new Books("The Elements of Style", "William Strunk Jr.", "Pearson", 975309023, "語言", "Available"));
@@ -281,8 +288,6 @@ public class App extends Application {
         stageList[2] = new Rank().createPanel(stageList, null);
     }
 
-
-
     public static void addBook(Books book) {
         // check if the book is already in the database
         books.add(book);
@@ -295,7 +300,7 @@ public class App extends Application {
                 int ISBN = rs.getInt("ISBN");
                 String category = rs.getString("category");
                 String status = rs.getString("status");
-    
+
                 Books b = new Books(name, author, publisher, ISBN, category, status);
                 if (b.getName().equals(book.getName())) {
                     JOptionPane.showMessageDialog(null, "書籍已存在");
@@ -306,7 +311,7 @@ public class App extends Application {
             System.out.println("Failed to retrieve books from database");
             e.printStackTrace();
         }
-    
+
         // If no matching book is found, add the new book
         Mysql.addBook(book); // call the method to add the book to the database
         JOptionPane.showMessageDialog(null, "新增成功");
@@ -351,7 +356,8 @@ public class App extends Application {
     public static void updateReturnBookPanel(Object[] stageList) {
         BookReturn.updatePanel(stageList);
     }
+
     public static void updateBookStatusPanel(Object[] stageList) {
-        
+
     }
 }

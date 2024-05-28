@@ -27,7 +27,7 @@ public class MembersInfo {
         // set the gap between the elements
         gridPane.setHgap(20);
         gridPane.setVgap(20);
-        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setAlignment(Pos.TOP_CENTER);
         gridPane.setPadding(new Insets(20));
         gridPane.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 20; -fx-border-color: #B0C4DE; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;");
 

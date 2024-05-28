@@ -25,7 +25,7 @@ public class ManageBook {
         // Initialize the gridPane
         gridPane.setHgap(20);
         gridPane.setVgap(20);
-        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setAlignment(Pos.TOP_CENTER);
         gridPane.setPadding(new Insets(20));
         gridPane.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 20; -fx-border-color: #B0C4DE; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;");
 
@@ -55,7 +55,7 @@ public class ManageBook {
         // Add search result table
         searchResultTable.setHgap(20);
         searchResultTable.setVgap(20);
-        searchResultTable.setAlignment(Pos.CENTER);
+        searchResultTable.setAlignment(Pos.TOP_CENTER);
         searchResultTable.setPadding(new Insets(20));
         searchResultTable.setStyle("-fx-background-color: #F0F8FF; -fx-padding: 20; -fx-border-color: #B0C4DE; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;");
         gridPane.add(searchResultTable, 0, 3, 3, 1);
@@ -160,7 +160,7 @@ public class ManageBook {
         GridPane gridPane = new GridPane();
         gridPane.setHgap(20);
         gridPane.setVgap(20);
-        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setAlignment(Pos.TOP_CENTER);
         gridPane.setPadding(new Insets(20));
         gridPane.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 20; -fx-border-color: #B0C4DE; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;");
 
