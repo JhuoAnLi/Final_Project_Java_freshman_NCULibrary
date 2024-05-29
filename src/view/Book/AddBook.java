@@ -1,9 +1,12 @@
 package view.Book;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -26,7 +29,7 @@ public class AddBook {
     private  TextField authorField = new TextField();
     private  TextField publisherField = new TextField();
     private  TextField ISBNField = new TextField();
-    private  TextField categoryField = new TextField();
+    private ComboBox<String> categoryField = new ComboBox<>();
 
 
     public GridPane createPanel(Object[] stageList, Stage primaryStage) {
@@ -54,6 +57,9 @@ public class AddBook {
         publisherLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         isbnLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         categoryLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+
+        ObservableList<String> categories = FXCollections.observableArrayList("文學", "歷史", "科技", "數學", "語言", "藝術", "其他");
+        categoryField.setItems(categories);
 
         // Add labels and textfields to gridPane
         gridPane.add(nameLabel, 0, 2);
@@ -89,17 +95,30 @@ public class AddBook {
             if (ISBNField.getText().isEmpty()) {
                 isbnLabel.setStyle("-fx-text-fill: red;");
             }
-            if (categoryField.getText().isEmpty()) {
+            if (categoryField.getValue() == null) {
                 categoryLabel.setStyle("-fx-text-fill: red;");
             }
-
-            if (!nameField.getText().isEmpty() && !authorField.getText().isEmpty() && !publisherField.getText().isEmpty() && !ISBNField.getText().isEmpty() && !categoryField.getText().isEmpty()) {
-                // Add book to database
-                Books book = new Books(nameField.getText(), authorField.getText(), publisherField.getText(), Integer.parseInt(ISBNField.getText()), categoryField.getText(), "Available");
-                App.addBook(book);
-
-                // Update the add book page
-                updatePanel(stageList);
+        
+            if (!nameField.getText().isEmpty() && !authorField.getText().isEmpty() && !publisherField.getText().isEmpty() && !ISBNField.getText().isEmpty() && !categoryField.getValue().isEmpty()) {
+                try {
+                    // Try to parse the ISBN
+                    int isbn = Integer.parseInt(ISBNField.getText());
+        
+                    // Reset the ISBN label
+                    isbnLabel.setText("ISBN");
+                    isbnLabel.setStyle("-fx-text-fill: black;");
+        
+                    // Add book to database
+                    Books book = new Books(nameField.getText(), authorField.getText(), publisherField.getText(), isbn, categoryField.getValue(), "Available");
+                    App.addBook(book);
+        
+                    // Update the add book page
+                    updatePanel(stageList);
+                } catch (NumberFormatException ex) {
+                    // Show error message
+                    isbnLabel.setText("ISBN 必須是一個有效的整數。");
+                    isbnLabel.setStyle("-fx-text-fill: red;");
+                }
             }
         });
 
@@ -112,7 +131,7 @@ public class AddBook {
         authorField.clear();
         publisherField.clear();
         ISBNField.clear();
-        categoryField.clear();
+        categoryField.setValue(null);
 
         // Reset label colors
         nameLabel.setStyle("-fx-text-fill: black;");

@@ -46,7 +46,7 @@ public class App extends Application {
         members.add(new Student("student1", "student1", "student1", "Student", 20));
         members.add(new Teacher("teacher1", "teacher1", "teacher1", "Teacher", 20));
         admins.add(new Admin("admin", "admin", "admin"));
-        firstTime();
+        // firstTime();
         Mysql mysql = new Mysql(); // connect to database
         launch(args);
     }

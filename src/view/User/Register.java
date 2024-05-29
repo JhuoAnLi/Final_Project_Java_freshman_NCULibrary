@@ -104,19 +104,32 @@ public class Register {
                 String account = accountField.getText();
                 String password = passwordField.getText();
                 String name = nameField.getText();
-                int age = Integer.parseInt(ageField.getText());
+                String ageText = ageField.getText();
                 String identity = identityField.getValue();
-
+        
+                // Check if any field is empty
+                if (account.isEmpty() || password.isEmpty() || name.isEmpty() || ageText.isEmpty() || identity == null) {
+                    throw new IllegalArgumentException("所有欄位都必須填寫。");
+                }
+        
+                // Try to parse the age
+                int age;
+                try {
+                    age = Integer.parseInt(ageText);
+                } catch (NumberFormatException ex) {
+                    throw new IllegalArgumentException("年齡必須是一個有效的整數。");
+                }
+        
                 register(account, password, name, age, identity);
                 messageLabel.setText("註冊成功！");
                 messageLabel.setTextFill(Color.GREEN);
-
+        
                 // set page to login page
                 setAllStageListInvisible(stageList);
                 ((GridPane) stageList[0]).setVisible(true);
                 
             } catch (Exception ex) {
-                messageLabel.setText("註冊失敗，請檢查輸入資訊。");
+                messageLabel.setText(ex.getMessage());
                 messageLabel.setTextFill(Color.RED);
             }
             messageLabel.setVisible(true);
