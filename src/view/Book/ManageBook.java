@@ -1,19 +1,24 @@
 package view.Book;
 
 import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import view.App;
 import object.Books; // 假设你有这个包
-import database.Mysql;
+import view.App;
 
 public class ManageBook {
     private GridPane gridPane = new GridPane();
@@ -113,7 +118,9 @@ public class ManageBook {
     private void updateSearchResult(GridPane searchResultTable, ArrayList<Books> searchResult, String method, String content) {
         // Clear the search result table
         searchResultTable.getChildren().clear();
-
+        modifyButtons.clear();
+        deleteButtons.clear();
+        
         // Add the title
         Label title = new Label("搜尋結果");
         title.setFont(Font.font("Arial", FontWeight.BOLD, 18));

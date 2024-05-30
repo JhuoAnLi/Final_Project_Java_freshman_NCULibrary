@@ -1,6 +1,6 @@
 package view;
 
-import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import database.Mysql;
 import javafx.application.Application;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
@@ -19,6 +20,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import object.Admin;
 import object.Books;
@@ -32,8 +34,6 @@ import view.NavBar.MemberNavBar;
 import view.NavBar.NavBar;
 import view.User.Login;
 import view.User.PersonalInfo;
-import javafx.scene.text.Text;
-import database.Mysql;
 
 public class App extends Application {
     private static Member currentLoginMember;
