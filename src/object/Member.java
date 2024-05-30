@@ -295,7 +295,7 @@ public abstract class Member extends User {
                                 memberList.get(t).setBorrow_num(memberList.get(t).getBorrow_num() + 1);
                                 bookList.get(y).setBorrower(Account);
                                 bookList.get(y).setStatus("Unavailable");
-                                Mysql.borrowBook(bookList.get(y);
+                                Mysql.borrowBook(bookList.get(y));
                                 bookList.get(y).setBorrow_time(LocalDateTime.now());
                                 // bookList.get(y).setReturn_time(memberList.get(t).getDeadlinee());
                                 for (int g = 0; g < borrowed_books.length; g++) {
