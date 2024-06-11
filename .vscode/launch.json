@@ -1,21 +1,28 @@
 {
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
     {
       "type": "java",
-      "name": "Current File",
+      "name": "App",
       "request": "launch",
-      "mainClass": "${file}"
+      "mainClass": "App",
+      "projectName": "library system_f3e8e7f5",
+      "classPaths": [
+        "${workspaceFolder}/bin",
+        "d:\\mysql-connector-j-8.4.0\\mysql-connector-j-8.4.0.jar"
+      ]
     },
     {
       "type": "java",
-      "name": "Final_project",
+      "name": "Launch Current File",
       "request": "launch",
-      "mainClass": "src.App",
-      "projectName": "Final_Project_Java_freshman_NCULibrary_916f0f94"
+      "mainClass": "${file}",
+      "classPaths": [
+        "${workspaceFolder}/bin",
+        "d:\\mysql-connector-j-8.4.0\\mysql-connector-j-8.4.0.jar"
+      ],
+      "cwd": "${workspaceFolder}/bin",
+      "vmArgs": "--module-path D:/javafx-sdk-22.0.1/lib --add-modules javafx.controls,javafx.fxml"
     }
   ]
 }

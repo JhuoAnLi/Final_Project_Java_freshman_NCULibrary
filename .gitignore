@@ -2,3 +2,5 @@
 *.class
 tempCodeRunnerFile.java
 *.log
+*.json
+.vscode/

@@ -1,30 +1,18 @@
-# Final_Project_Java_freshman_NCULibrary
+## Getting Started
 
-## mySQL 步驟
+Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
 
-1. 下載 [Java Database Connetor (JDBC)](https://dev.mysql.com/downloads/connector/j/) (選擇 Platform Independent)
-2. 解壓縮後將裡面的 `mysql-connector-java-8.0.23.jar` 在專案引入
-3. 建立 mysql
+## Folder Structure
 
-```bash
-mysql -u root -p
-```
+The workspace contains two folders by default, where:
 
-```sql
-CREATE DATABASE java_final_project;
-CREATE USER 'java'@'localhost' IDENTIFIED BY 'java';
-GRANT ALL PRIVILEGES ON java_final_project.* TO 'java'@'localhost';
-FLUSH PRIVILEGES;
+- `src`: the folder to maintain sources
+- `lib`: the folder to maintain dependencies
 
-USE java_final_project;
-CREATE TABLE books (
-    name VARCHAR(255) NOT NULL,
-    author VARCHAR(255) NOT NULL,
-    publisher VARCHAR(255) NOT NULL,
-    ISBN INT NOT NULL,
-    category VARCHAR(255) NOT NULL,
-    status VARCHAR(255) NOT NULL
-);
-```
+Meanwhile, the compiled output files will be generated in the `bin` folder by default.
 
-![1715277791108](image/README/1715277791108.png)
+> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+
+## Dependency Management
+
+The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
