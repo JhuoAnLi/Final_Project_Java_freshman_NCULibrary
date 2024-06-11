@@ -15,7 +15,7 @@ public class Mysql {
     static {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/java_final_project";
+            String url = "jdbc:mysql://45.63.121.53:3306/java_final_project";
             String user = "java";
             String password = "java";
             conn = DriverManager.getConnection(url, user, password);
@@ -25,7 +25,7 @@ public class Mysql {
             e.printStackTrace();
         } catch (SQLException e) {
             System.out.println("Failed to create connection to database");
-            e.printStackTrace();
+            e.printStackTrace();    
         }
     }
 

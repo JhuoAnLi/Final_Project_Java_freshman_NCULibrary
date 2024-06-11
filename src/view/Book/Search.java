@@ -150,44 +150,41 @@ public class Search {
         ArrayList<object.Books> searchResult = new ArrayList<>();
         if (method.equals("類別")) {
             for (object.Books book : books) {
-                if (book.getCategory().equals(content)) {
+                if (book.getCategory().contains(content)) {
                     searchResult.add(book);
                 }
             }
         } else if (method.equals("書名")) {
             for (object.Books book : books) {
-                if (book.getName().equals(content)) {
+                if (book.getName().contains(content)) {
                     searchResult.add(book);
                 }
             }
         } else if (method.equals("作者")) {
             for (object.Books book : books) {
-                if (book.getAuthor().equals(content)) {
+                if (book.getAuthor().contains(content)) {
                     searchResult.add(book);
                 }
             }
         } else if (method.equals("出版社")) {
             for (object.Books book : books) {
-                if (book.getPublisher().equals(content)) {
+                if (book.getPublisher().contains(content)) {
                     searchResult.add(book);
                 }
             }
         } else if (method.equals("ISBN")) {
             for (object.Books book : books) {
-                if (book.getISBN() == Integer.parseInt(content)) {
+                if (String.valueOf(book.getISBN()).contains(content)) {
                     searchResult.add(book);
                 }
             }
         } else if (method.equals("狀態")) {
             for (object.Books book : books) {
-                if (book.getStatus().equals("Available") && content.equals("可借")) {
-                    searchResult.add(book);
-                } else if (book.getStatus().equals("Unavailable") && content.equals("不可借")) {
+                if (book.getStatus().contains(content)) {
                     searchResult.add(book);
                 }
             }
         }
         return searchResult;
     }
-
 }

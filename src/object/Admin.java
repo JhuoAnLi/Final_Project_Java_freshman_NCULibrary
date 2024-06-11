@@ -118,23 +118,23 @@ public class Admin extends User {
         }
     }
 
-    public void check_members(String member_account) {
-        String ab = "";
-        for (int i = 0; i < members.length; i++) {
-            if (App.members[i] != null && App.members[i].getAccount().equals(member_account)) {
-                ab += "Account: " + App.members[i].getAccount() + "\nName: " + App.members[i].getName() + "\nIdentity: "
-                        + App.members[i].getIdentity() + "\nAge: " + App.members[i].getAge() + "\nDeadline: "
-                        + App.members[i].getDeadlinee() + " seconds\nFine: " + App.members[i].getFine()
-                        + " dollars\nMax_borrow: " + App.members[i].getMax_borrow();
-                JOptionPane.showMessageDialog(null, ab);
+    // public void check_members(String member_account) {
+    //     String ab = "";
+    //     for (int i = 0; i < members.length; i++) {
+    //         if (App.members[i] != null && App.members[i].getAccount().equals(member_account)) {
+    //             ab += "Account: " + App.members[i].getAccount() + "\nName: " + App.members[i].getName() + "\nIdentity: "
+    //                     + App.members[i].getIdentity() + "\nAge: " + App.members[i].getAge() + "\nDeadline: "
+    //                     + App.members[i].getDeadlinee() + " seconds\nFine: " + App.members[i].getFine()
+    //                     + " dollars\nMax_borrow: " + App.members[i].getMax_borrow();
+    //             JOptionPane.showMessageDialog(null, ab);
 
-                break;
-            } else if (App.members[i] == null && i == members.length - 1) {
-                JOptionPane.showMessageDialog(null, "No such member!");
-                break;
-            }
-        }
-    }
+    //             break;
+    //         } else if (App.members[i] == null && i == members.length - 1) {
+    //             JOptionPane.showMessageDialog(null, "No such member!");
+    //             break;
+    //         }
+    //     }
+    // }
 
     public void check_books() {
         String ab = "";
@@ -179,18 +179,18 @@ public class Admin extends User {
         }
     }
 
-    public void check_fine() {
-        int total = 0;
-        for (int i = 0; i < members.length; i++) {
-            if (App.members[i] != null && App.members[i].getTotalFine() > 0) {
-                total += App.members[i].getTotalFine();
-            }
-        }
-        // JOptionPane.showMessageDialog(null, "Total fine: " + total + " dollar(s)", "Total Fine",
-        //         JOptionPane.INFORMATION_MESSAGE, Moneyy);
-        JOptionPane.showMessageDialog(null, "Total fine: " + total + " dollar(s)", "Total Fine",
-                JOptionPane.INFORMATION_MESSAGE);
-    }
+    // public void check_fine() {
+    //     int total = 0;
+    //     for (int i = 0; i < members.length; i++) {
+    //         if (App.members[i] != null && App.members[i].getTotalFine() > 0) {
+    //             total += App.members[i].getTotalFine();
+    //         }
+    //     }
+    //     // JOptionPane.showMessageDialog(null, "Total fine: " + total + " dollar(s)", "Total Fine",
+    //     //         JOptionPane.INFORMATION_MESSAGE, Moneyy);
+    //     JOptionPane.showMessageDialog(null, "Total fine: " + total + " dollar(s)", "Total Fine",
+    //             JOptionPane.INFORMATION_MESSAGE);
+    // }
 
     public void ranking() {
         String k = "";

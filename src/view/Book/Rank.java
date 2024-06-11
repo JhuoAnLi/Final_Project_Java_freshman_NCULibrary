@@ -76,13 +76,9 @@ public class Rank {
     private static ArrayList<Books> getRankList(ArrayList<Books> books){
         // get the rank list and return by its search times
         books.sort((book1, book2) -> book2.getsearchCount() - book1.getsearchCount());
-
         return books;
     }
     public static void updateRankList(){
-        // update the rank list
-        // get books then calculate the rank list
-        // clear gridPane until the title
         ArrayList<Books> books = App.getBooks();
         gridPane.getChildren().remove(1, gridPane.getChildren().size());
         ArrayList<Books> rankList = getRankList(books);

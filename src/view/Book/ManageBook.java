@@ -99,11 +99,11 @@ public class ManageBook {
         // Search the book by the search method and search content
         ArrayList<Books> searchResult = new ArrayList<>();
         for (Books book : books) {
-            if (method.equals("類別") && book.getCategory().equals(content)) {
+            if (method.equals("類別") && book.getCategory().contains(content)) {
                 searchResult.add(book);
-            } else if (method.equals("書名") && book.getName().equals(content)) {
+            } else if (method.equals("書名") && book.getName().contains(content)) {
                 searchResult.add(book);
-            } else if (method.equals("作者") && book.getAuthor().equals(content)) {
+            } else if (method.equals("作者") && book.getAuthor().contains(content)) {
                 searchResult.add(book);
             }
         }

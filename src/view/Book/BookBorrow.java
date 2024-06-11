@@ -67,7 +67,11 @@ public class BookBorrow {
             Books book = books.get(i);
             Label bookLabel = new Label((i + 1) + ". " + book.getName());
             Button borrowButton = new Button("借書");
-        
+            if (book.getStatus().equals("Unavailable")) {
+                borrowButton.setStyle("-fx-background-color: #FF6347; -fx-text-fill: white; -fx-background-radius: 5;");
+                borrowButton.setText("預約");
+            }
+
             borrowButton.setOnAction(e -> {
                 try {
                     Student.borrow_book(book.getName(), App.getLoginMember().getAccount());
@@ -139,17 +143,17 @@ public class BookBorrow {
         for (Books book : books) {
             switch (method) {
                 case "類別":
-                    if (book.getCategory().equals(content)) {
+                    if (book.getCategory().contains(content)) {
                         filteredBooks.add(book);
                     }
                     break;
                 case "作者":
-                    if (book.getAuthor().equals(content)) {
+                    if (book.getAuthor().contains(content)) {
                         filteredBooks.add(book);
                     }
                     break;
                 case "書名":
-                    if (book.getName().equals(content)) {
+                    if (book.getName().contains(content)) {
                         filteredBooks.add(book);
                     }
                     break;
